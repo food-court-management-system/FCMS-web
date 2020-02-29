@@ -1,0 +1,46 @@
+<h2 style="color: #070033;">Menu</h2>
+<div [routerLink]="['/cashier']" class="navbar-left">
+  <p style="color: #070033;">List all customer</p>
+  <p style="color: #070033;">Deposit Wallet</p>
+  <p style="color: #070033;">Withdrawals Wallet</p>
+</div>
+
+<div [routerLink]="['/admin']" class="navbar-left">
+  <ul>
+    <li>Manage Food Stall Manager</li>
+    <ul>
+      <li>Create Food Stall Manager</li>
+      <li>Delete Food Stall Manager</li>
+    </ul>
+  </ul>
+  <ul>
+    <li>Manage Cashier</li>
+    <ul>
+      <li>Create Cashier</li>
+      <li>Delete Cashier</li>
+    </ul>
+  </ul>
+  <p>Create Food Court Manager</p>
+  <p>Edit Food Court's Information</p>
+  <p>View statistic report</p>
+</div>
+
+<div [routerLink]="['/foodstall']" class="navbar-left">
+  <ul>
+    <li>Manage customer's order request</li>
+    <ul>
+      <li>Receive order request</li>
+      <li>Update order's status</li>
+    </ul>
+  </ul>
+  <ul>
+    <li>Manage food stall's menu</li>
+    <ul>
+      <li>Create food</li>
+      <li>Update food</li>
+      <li>Delete food</li>
+    </ul>
+  </ul>
+  <p>Update description</p>
+</div>
+
