@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import {AuthenticationService} from '../../../service/authentication.service';
 
 @Component({
   selector: 'app-menu',
@@ -7,13 +7,12 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./menu.component.css']
 })
 export class MenuComponent implements OnInit {
-
   role: string;
 
-  constructor(private route: ActivatedRoute) { }
+  constructor(private authenticationService: AuthenticationService) { }
 
   ngOnInit() {
-    // this.role = this.route.snapshot.params["roles"];
+    this.role = this.authenticationService.currentUserValue.role;
   }
 
 }

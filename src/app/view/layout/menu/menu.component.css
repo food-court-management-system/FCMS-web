@@ -1,0 +1,32 @@
+.submenu {
+  text-decoration: none;
+  font-family: 'Segoe UI';
+  color: #666666;
+  font-size: 20px;
+}
+
+.submenu:hover {
+  font-weight: bold;
+  color: orangered;
+}
+
+.menu {
+  text-decoration: none;
+  font-family: 'Segoe UI';
+  color: #2F86FA;
+  font-size: 24px;
+  font-weight: 600;
+}
+
+.menu:hover {
+  color: orangered;
+}
+
+.active {
+  font-weight: bold;
+  color: orangered;
+}
+
+.row {
+  padding-left: 20px;
+}
