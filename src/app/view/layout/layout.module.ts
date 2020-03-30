@@ -18,6 +18,7 @@ import { ManageFsmComponent } from './admin/manage-fsm/manage-fsm.component';
 import { ManageCashierComponent } from './admin/manage-cashier/manage-cashier.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {DataTablesModule} from 'angular-datatables';
+import { HeaderComponent } from './header/header.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import {DataTablesModule} from 'angular-datatables';
     DeleteFsmComponent,
     CreateFsmComponent,
     ManageFsmComponent,
-    ManageCashierComponent
+    ManageCashierComponent,
+    HeaderComponent
   ],
   imports: [
     LayoutRoutingModule,

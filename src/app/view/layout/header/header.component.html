@@ -5,14 +5,12 @@
   <div class="div col-lg-7">
     <h1 class="header"><strong>Food Court Management System</strong></h1>
   </div>
-  <div class="div col-lg-1">
+  <div class="div col-lg-3" *ngIf="isLogin" style="text-align: right;">
     <br>
-    <p class="hello" style="float: right;">Hello, </p>
-  </div>
-  <div class="div col-lg-2" *ngIf="isLogin">
     <br>
-    <a class="hello" style="cursor: pointer;">admin</a>
-    <a (click)="logout()" class="hello" style="cursor: pointer;">(logout)</a>
+      <i class="fa fa-user fa-lg hello"> <b>&nbsp;&nbsp;{{fname}}</b></i>
+      &nbsp;
+      <i class="fa fa-sign-out fa-lg hello" (click)="logout()"></i>
   </div>
 
 </div>

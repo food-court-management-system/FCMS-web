@@ -5,3 +5,8 @@
 input.ng-invalid.ng-touched {
   border: 1px solid red;
 }
+
+.user-avatar {
+  border: 5px solid #fff;
+  margin-left: 35%;
+}
