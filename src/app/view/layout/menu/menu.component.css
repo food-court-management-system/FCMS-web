@@ -1,7 +1,7 @@
 .submenu {
   text-decoration: none;
   font-family: 'Segoe UI';
-  color: #666666;
+  color: #070033;
   font-size: 20px;
 }
 
@@ -13,7 +13,7 @@
 .menu {
   text-decoration: none;
   font-family: 'Segoe UI';
-  color: #2F86FA;
+  color: #070033;
   font-size: 24px;
   font-weight: 600;
 }
@@ -24,7 +24,7 @@
 
 .active {
   font-weight: bold;
-  color: orangered;
+  color: orange;
 }
 
 .row {

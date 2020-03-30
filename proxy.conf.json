@@ -1,7 +1,10 @@
 {
-  "/api/v1": {
-    "target": "http://localhost:8080",
+  "/api": {
+    "target": "http://foodcout.ap-southeast-1.elasticbeanstalk.com",
     "secure": false,
+    "pathRewrite": {
+      "^/api": ""
+    },
     "logLevel": "debug"
   }
 }

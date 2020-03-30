@@ -16,6 +16,7 @@ import { DeleteFsmComponent } from './admin/delete-fsm/delete-fsm.component';
 import { CreateFsmComponent } from './admin/create-fsm/create-fsm.component';
 import { ManageFsmComponent } from './admin/manage-fsm/manage-fsm.component';
 import { ManageCashierComponent } from './admin/manage-cashier/manage-cashier.component';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,9 @@ import { ManageCashierComponent } from './admin/manage-cashier/manage-cashier.co
   ],
   imports: [
     LayoutRoutingModule,
-    CommonModule
+    CommonModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [
     AdminGuard,

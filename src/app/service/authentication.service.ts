@@ -8,7 +8,7 @@ import {map} from 'rxjs/operators';
   providedIn: 'root'
 })
 export class AuthenticationService {
-  backend: string = '/api/v1';
+  backend: string = '/api';
 
   private currentUserSubject: BehaviorSubject<User>;
   public currentUser: Observable<User>;

@@ -2,6 +2,14 @@
   color: #070033;
 }
 
-a.header:hover {
-  color: chartreuse;
+.hello {
+  color: orange;
+}
+
+a.hello {
+  color: orange;
+}
+
+a.hello:hover {
+  color: orangered;
 }

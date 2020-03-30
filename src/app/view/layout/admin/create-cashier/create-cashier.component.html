@@ -1,1 +1,78 @@
-<p>create-cashier works!</p>
+<div class="row" style="padding-left: 40px;">
+  <br>
+  <h4>Create New Cashier</h4>
+  <hr>
+</div>
+<!--<div class="row" *ngIf="showError">-->
+  <!--<div class="alert alert-danger alert-dismissible">-->
+    <!--<a class="close" data-dismiss="alert" aria-label="close">&times;</a>-->
+    <!--All fields are required-->
+  <!--</div>-->
+<!--</div>-->
+<div class="row">
+  <br>
+  <form class="form-horizontal" [formGroup]="cashierForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <div class="col-sm-1"></div>
+      <label class="control-label col-sm-2" for="1">Username <span>*</span></label>
+      <div class="col-sm-9">
+        <input formControlName="username" type="text" maxlength="20" class="form-control" id="1">
+      </div>
+        <span *ngIf="!cashierForm.get('username').valid && cashierForm.get('username').touched" class="help-block">
+          <span>Username must have 6-20 characters</span>
+        </span>
+    </div>
+    <div class="form-group">
+      <div class="col-sm-1"></div>
+      <label class="control-label col-sm-2" for="5">Password <span>*</span></label>
+      <div class="col-sm-9">
+        <input formControlName="password" type="password" maxlength="20" class="form-control" id="5">
+      </div>
+        <span *ngIf="!cashierForm.get('password').valid && cashierForm.get('password').touched" class="help-block">
+          <span>Password must have 6-20 characters</span>
+        </span>
+    </div>
+    <div class="form-group">
+      <div class="col-sm-1"></div>
+      <label class="control-label col-sm-2" for="2">Firstname:  <span>*</span></label>
+      <div class="col-sm-9">
+        <input formControlName="fName" type="text" class="form-control" id="2" maxlength="50">
+      </div>
+        <span *ngIf="!cashierForm.get('fName').valid && cashierForm.get('fName').touched" class="help-block">
+          <span>Firstname can't be blank</span>
+        </span>
+    </div>
+    <div class="form-group">
+      <div class="col-sm-1"></div>
+      <label class="control-label col-sm-2" for="3">Lastname:  <span>*</span></label>
+      <div class="col-sm-9">
+        <input formControlName="lName" type="text" class="form-control" id="3" maxlength="50">
+      </div>
+        <span *ngIf="!cashierForm.get('lName').valid && cashierForm.get('lName').touched" class="help-block">
+          <span>Lastname can't be blank</span>
+        </span>
+    </div>
+    <div class="form-group">
+      <div class="col-sm-1"></div>
+      <label class="control-label col-sm-2" for="4">Age:  <span>*</span></label>
+      <div class="div col-sm-9">
+        <input formControlName="age" type="number" class="form-control" id="4">
+      </div>
+        <span *ngIf="!cashierForm.get('age').valid && cashierForm.get('age').touched" class="help-block">
+          <span>Age must from 18-60</span>
+        </span>
+    </div>
+
+    <div class="form-group">
+      <hr>
+      <div class="col-sm-6"></div>
+      <div class="col-sm-2">
+        <button class="btn btn-default" style="width: 100%" type="button" (click)="onClear()">Clear</button>
+      </div>
+      <div class="col-sm-1"></div>
+      <div class="col-md-2">
+        <button class="btn btn-primary" style="width: 100%" type="submit">Create</button>
+      </div>
+    </div>
+  </form>
+</div>
