@@ -26,8 +26,10 @@ export class LoginComponent implements OnInit {
         this.router.navigate(['/admin']);
       } else if (this.authenticationService.currentUserValue.role === 'cashier') {
         this.router.navigate(['/cashier']);
-      } else if (this.authenticationService.currentUserValue.role === 'foodstall') {
-        this.router.navigate(['/foodstall']);
+      } else if (this.authenticationService.currentUserValue.role === 'fsmanager') {
+        this.router.navigate(['/fsmanager']);
+      } else {
+        this.router.navigate(['/fsstaff']);
       }
     }
   }
