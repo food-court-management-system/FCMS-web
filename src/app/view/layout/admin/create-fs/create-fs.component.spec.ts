@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { FoodStallComponent } from './food-stall.component';
+import { CreateFsComponent } from './create-fs.component';
 
-describe('FoodStallComponent', () => {
-  let component: FoodStallComponent;
-  let fixture: ComponentFixture<FoodStallComponent>;
+describe('CreateFsComponent', () => {
+  let component: CreateFsComponent;
+  let fixture: ComponentFixture<CreateFsComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ FoodStallComponent ]
+      declarations: [ CreateFsComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(FoodStallComponent);
+    fixture = TestBed.createComponent(CreateFsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

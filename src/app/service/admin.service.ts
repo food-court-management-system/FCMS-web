@@ -27,5 +27,10 @@ export class AdminService {
     return this.httpClient.put(`${this.backend}/food-court/cashier/${id}/delete`, null);
   }
 
+  // Hàm chưa có
+  createNewFoodStall(data: FormData) {
+    return this.httpClient.put(`${this.backend}/somthing`, null);
+  }
+
 
 }
