@@ -1,1 +1,28 @@
-<p>manage-fsm works!</p>
+<div>
+  <h1>List of FS Managers</h1>
+</div>
+
+<table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="row-border hover">
+  <thead>
+  <tr>
+    <th>ID</th>
+    <th>Username</th>
+    <th>First name</th>
+    <th>Last name</th>
+    <th>Age</th>
+    <th>Food Stall</th>
+    <th></th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let fsm of fsms">
+    <td>{{ fsm.userId }}</td>
+    <td>{{ fsm.username }}</td>
+    <td>{{ fsm.firstName }}</td>
+    <td>{{ fsm.lastName }}</td>
+    <td>{{ fsm.age }}</td>
+    <td>{{ fsm.fsid }} - {{ fsm.fsname }}</td>
+    <td><button (click)="onDelete(fsm.userId)" type="button">Delete</button></td>
+  </tr>
+  </tbody>
+</table>

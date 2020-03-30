@@ -2,17 +2,16 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {AdminService} from '../../../../service/admin.service';
 import {User} from '../../../../dtos/user.dto';
 import {Subject} from 'rxjs';
-import {AllFSManagerDto} from '../../../../dtos/allFSManager.dto';
+import {FoodStallDto} from '../../../../dtos/foodStall.dto';
 
 @Component({
-  selector: 'app-manage-fsm',
-  templateUrl: './manage-fsm.component.html',
-  styleUrls: ['./manage-fsm.component.css']
+  selector: 'app-manage-fs',
+  templateUrl: './manage-fs.component.html',
+  styleUrls: ['./manage-fs.component.css']
 })
-export class ManageFsmComponent implements OnInit, OnDestroy {
-
+export class ManageFsComponent implements OnInit, OnDestroy {
   dtOptions: DataTables.Settings = {};
-  fsms: AllFSManagerDto[] = [];
+  fss: FoodStallDto[] = [];
   // We use this trigger because fetching the list of persons can be quite long,
   // thus we ensure the data is fetched before rendering
   dtTrigger: Subject<any> = new Subject<any>();
@@ -24,8 +23,8 @@ export class ManageFsmComponent implements OnInit, OnDestroy {
       pagingType: 'full_numbers',
       pageLength: 10
     };
-    this.adminService.getAllFSManager().subscribe(allFSM => {
-      this.fsms = allFSM;
+    this.adminService.getAllFS().subscribe(data => {
+      this.fss = data;
       // Calling the DT trigger to manually render the table
       this.dtTrigger.next();
     });
@@ -42,13 +41,14 @@ export class ManageFsmComponent implements OnInit, OnDestroy {
   // }
 
   onDelete(id: number) {
-    this.adminService.deleteCashier(id).subscribe(data => {
-      console.log(data);
-    }, error => {
-      console.log(error);
-    });
-    // this.adminService.getAllCashier().subscribe(allFSM => {
-    //   this.fsms = allFSM;
+    // this.adminService.deleteCashier(id).subscribe(data => {
+    //   console.log(data);
+    // }, error => {
+    //   console.log(error);
+    // });
+    // this.adminService.getAllCashier().subscribe(users => {
+    //   console.log(users);
+    //   this.users = users;
     //   // Calling the DT trigger to manually render the table
     //   this.dtTrigger.next();
     // });

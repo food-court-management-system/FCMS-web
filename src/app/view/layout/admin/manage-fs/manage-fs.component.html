@@ -1,0 +1,22 @@
+<div>
+  <h1>List of Food Stalls</h1>
+</div>
+
+<table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="row-border hover">
+  <thead>
+  <tr>
+    <th>ID</th>
+    <th>Name</th>
+    <th>Rating</th>
+    <th></th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let fs of fss">
+    <td>{{ fs.foodStallId }}</td>
+    <td>{{ fs.foodStallName }}</td>
+    <td>{{ fs.foodStallRating }}</td>
+    <td><button (click)="onDelete(fs.foodStallId)" type="button">Delete</button></td>
+  </tr>
+  </tbody>
+</table>

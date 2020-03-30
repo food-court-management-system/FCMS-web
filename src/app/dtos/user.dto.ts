@@ -1,12 +1,12 @@
 export class User {
-  userId: number;
-  username: string;
-  password: string;
-  firstName: string;
-  lastName: string;
-  role: string;
-  isActive: boolean;
-  age: number;
-  foodStallId: number;
-  token: string;
+  public userId: number;
+  public username: string;
+  public password: string;
+  public firstName: string;
+  public lastName: string;
+  public role: string;
+  public isActive: boolean;
+  public age: number;
+  public foodStallId: number;
+  public token: string;
 }
