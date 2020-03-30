@@ -59,13 +59,18 @@ export class CreateFsComponent implements OnInit {
   }
 
   onSubmit() {
-    // chưa có 2 field trong fsForm
     const formData = new FormData();
-    formData.append('file', this.fileData);
-    this.adminService.createNewFoodStall(formData).subscribe(res => {
+    formData.append('foodStallName', this.fsForm.controls.foodStallName.value);
+    formData.append('foodStallDescription', this.fsForm.controls.foodStallDescription.value);
+    formData.append('image', this.fileData);
+    this.adminService.createNewFoodStall(formData)
+    .subscribe((res) => {
         // console.log(res);
         // this.uploadedFilePath = res.data.filePath;
-        // alert('SUCCESS !!');
+        alert('SUCCESS !!');
+    },
+    (error) => {
+      console.log(error)
     });
   }
 
