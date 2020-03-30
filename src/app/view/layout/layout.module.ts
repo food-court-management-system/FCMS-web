@@ -18,6 +18,7 @@ import { ManageFsmComponent } from './admin/manage-fsm/manage-fsm.component';
 import { ManageCashierComponent } from './admin/manage-cashier/manage-cashier.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {DataTablesModule} from 'angular-datatables';
+import { HeaderComponent } from './header/header.component';
 import { FoodStallStaffComponent } from './food-stall-staff/food-stall-staff.component';
 import {FoodstallStaffGuard} from '../../service/foodstall-staff.guard';
 import { CreateFsComponent } from './admin/create-fs/create-fs.component';
@@ -36,6 +37,7 @@ import { CreateFsComponent } from './admin/create-fs/create-fs.component';
     CreateFsmComponent,
     ManageFsmComponent,
     ManageCashierComponent,
+    HeaderComponent,
     FoodStallStaffComponent,
     CreateFsComponent
   ],

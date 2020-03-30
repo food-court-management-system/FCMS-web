@@ -6,10 +6,7 @@
   color: orange;
 }
 
-a.hello {
-  color: orange;
-}
-
-a.hello:hover {
+.hello:hover {
+  cursor: pointer;
   color: orangered;
 }

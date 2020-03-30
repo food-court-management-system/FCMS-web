@@ -11,12 +11,10 @@ import {ReactiveFormsModule} from '@angular/forms';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {JwtInterceptor} from './service/jwt.interceptor';
 import {ErrorInterceptor} from './service/error.interceptor';
-import {HeaderComponent} from './view/layout/header/header.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    HeaderComponent,
     PageNotFoundComponent,
     ErrorPageComponent,
     LoginComponent
