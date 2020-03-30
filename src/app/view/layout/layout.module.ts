@@ -22,6 +22,7 @@ import { HeaderComponent } from './header/header.component';
 import { FoodStallStaffComponent } from './food-stall-staff/food-stall-staff.component';
 import {FoodstallStaffGuard} from '../../service/foodstall-staff.guard';
 import { CreateFsComponent } from './admin/create-fs/create-fs.component';
+import { PersonalInformationComponent } from './personal-information/personal-information.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,8 @@ import { CreateFsComponent } from './admin/create-fs/create-fs.component';
     ManageCashierComponent,
     HeaderComponent,
     FoodStallStaffComponent,
-    CreateFsComponent
+    CreateFsComponent,
+    PersonalInformationComponent
   ],
   imports: [
     LayoutRoutingModule,

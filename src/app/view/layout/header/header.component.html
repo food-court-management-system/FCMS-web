@@ -8,7 +8,7 @@
   <div class="div col-lg-3" *ngIf="isLogin" style="text-align: right;">
     <br>
     <br>
-      <i class="fa fa-user fa-lg hello"> <b>&nbsp;&nbsp;{{fname}}</b></i>
+      <i class="fa fa-user fa-lg hello" (click)="onPersonalInfo()"> <b>&nbsp;&nbsp;{{fname}}</b></i>
       &nbsp;
       <i class="fa fa-sign-out fa-lg hello" (click)="logout()"></i>
   </div>

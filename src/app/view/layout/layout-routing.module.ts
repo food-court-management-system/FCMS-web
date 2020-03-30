@@ -17,6 +17,7 @@ import {ManageCashierComponent} from './admin/manage-cashier/manage-cashier.comp
 import {FoodstallStaffGuard} from '../../service/foodstall-staff.guard';
 import {FoodStallStaffComponent} from './food-stall-staff/food-stall-staff.component';
 import {CreateFsComponent} from './admin/create-fs/create-fs.component';
+import {PersonalInformationComponent} from './personal-information/personal-information.component';
 
 const layoutRoutes: Routes = [
   { path: '',
@@ -35,7 +36,8 @@ const layoutRoutes: Routes = [
         ] },
       { path: 'cashier', component: CashierComponent, canActivate: [CashierGuard] },
       { path: 'fsmanager', component: FoodStallManagerComponent, canActivate: [FoodstallManagerGuard] },
-      { path: 'fsstaff', component: FoodStallStaffComponent, canActivate: [FoodstallStaffGuard] }
+      { path: 'fsstaff', component: FoodStallStaffComponent, canActivate: [FoodstallStaffGuard] },
+      { path: 'personal-information', component: PersonalInformationComponent }
     ]}
 ]
 

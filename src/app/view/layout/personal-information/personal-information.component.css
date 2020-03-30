@@ -1,0 +1,38 @@
+h4 {
+  font-weight: bold;
+  color: #070033;
+}
+
+.form-group {
+  margin-bottom: 38px;
+}
+
+.form-control {
+  height: 30px;
+}
+
+.control-label {
+  color: #070033;
+  text-align: left;
+}
+
+.default-width {
+  width: 200px;
+}
+
+.custom-width {
+  width: 100%;
+}
+
+input.ng-invalid.ng-touched {
+  border: 1px solid red;
+}
+
+span {
+  color: red;
+}
+
+.input-container>input {
+  height: 30px;
+}
+
