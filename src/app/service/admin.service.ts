@@ -29,7 +29,7 @@ export class AdminService {
 
   // Hàm chưa có
   createNewFoodStall(data: FormData) {
-    return this.httpClient.put(`${this.backend}/somthing`, null);
+    return this.httpClient.post(`${this.backend}/food-stall/create`, data);
   }
 
 
