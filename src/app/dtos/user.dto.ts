@@ -2,8 +2,8 @@ export class User {
   userId: number;
   username: string;
   password: string;
-  fName: string;
-  lName: string;
+  firstName: string;
+  lastName: string;
   role: string;
   isActive: boolean;
   age: number;

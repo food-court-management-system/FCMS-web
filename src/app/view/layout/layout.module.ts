@@ -17,6 +17,7 @@ import { CreateFsmComponent } from './admin/create-fsm/create-fsm.component';
 import { ManageFsmComponent } from './admin/manage-fsm/manage-fsm.component';
 import { ManageCashierComponent } from './admin/manage-cashier/manage-cashier.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {DataTablesModule} from 'angular-datatables';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
     LayoutRoutingModule,
     CommonModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    DataTablesModule
   ],
   providers: [
     AdminGuard,

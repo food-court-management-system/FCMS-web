@@ -34,8 +34,8 @@ export class CreateCashierComponent implements OnInit, CanComponentDeactivate {
     this.cashierForm = new FormGroup({
       username: new FormControl(null, [Validators.required, Validators.maxLength(20)]),
       password: new FormControl(null, [Validators.required, Validators.maxLength(20)]),
-      fName: new FormControl(null, [Validators.required, Validators.maxLength(50)]),
-      lName: new FormControl(null, [Validators.required, Validators.maxLength(50)]),
+      firstName: new FormControl(null, [Validators.required, Validators.maxLength(50)]),
+      lastName: new FormControl(null, [Validators.required, Validators.maxLength(50)]),
       age: new FormControl(0, [Validators.required, Validators.min(18), Validators.max(60)])
     });
   }
@@ -51,7 +51,14 @@ export class CreateCashierComponent implements OnInit, CanComponentDeactivate {
         alert('Something went wrong');
         this.formSubmitted = false;
       }
-    }, (data) => {
+    }, (error) => {
+      console.log(error);
+      if (error === 'This username is existed please use another username') {
+        alert('Username has already existed. Please try another username')
+        this.cashierForm.get('username').hasError('invalid', 'Username has already existed');
+      } else {
+        alert('Server is off. Please try again later');
+      }
       // this.catchError.error = data;
       // this.router.navigate(['/error']);
     });

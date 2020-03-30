@@ -19,5 +19,13 @@ export class AdminService {
     return this.httpClient.post(`${this.backend}/food-court/cashier/create`, user);
   }
 
+  getAllCashier() {
+    return this.httpClient.get(`${this.backend}/food-court/cashier/lists`);
+  }
+
+  deleteCashier(id: number) {
+    return this.httpClient.put(`${this.backend}/food-court/cashier/${id}/delete`, null);
+  }
+
 
 }

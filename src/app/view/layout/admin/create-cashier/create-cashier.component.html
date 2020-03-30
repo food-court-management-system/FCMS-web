@@ -9,7 +9,7 @@
     <!--All fields are required-->
   <!--</div>-->
 <!--</div>-->
-<div class="row">
+<div>
   <br>
   <form class="form-horizontal" [formGroup]="cashierForm" (ngSubmit)="onSubmit()">
     <div class="form-group">
@@ -19,7 +19,8 @@
         <input formControlName="username" type="text" maxlength="20" class="form-control" id="1">
       </div>
         <span *ngIf="!cashierForm.get('username').valid && cashierForm.get('username').touched" class="help-block">
-          <span>Username must have 6-20 characters</span>
+          <span *ngIf="cashierForm.get('username').errors && cashierForm.get('username').errors['invalid']">Username has already existed. Please try another username.</span>
+          <span *ngIf="cashierForm.get('username').errors && cashierForm.get('username').errors['required']">Username must have 6-20 characters</span>
         </span>
     </div>
     <div class="form-group">
@@ -36,20 +37,20 @@
       <div class="col-sm-1"></div>
       <label class="control-label col-sm-2" for="2">Firstname:  <span>*</span></label>
       <div class="col-sm-9">
-        <input formControlName="fName" type="text" class="form-control" id="2" maxlength="50">
+        <input formControlName="firstName" type="text" class="form-control" id="2" maxlength="50">
       </div>
-        <span *ngIf="!cashierForm.get('fName').valid && cashierForm.get('fName').touched" class="help-block">
-          <span>Firstname can't be blank</span>
+        <span *ngIf="!cashierForm.get('firstName').valid && cashierForm.get('firstName').touched" class="help-block">
+          <span>First Name can't be blank</span>
         </span>
     </div>
     <div class="form-group">
       <div class="col-sm-1"></div>
       <label class="control-label col-sm-2" for="3">Lastname:  <span>*</span></label>
       <div class="col-sm-9">
-        <input formControlName="lName" type="text" class="form-control" id="3" maxlength="50">
+        <input formControlName="lastName" type="text" class="form-control" id="3" maxlength="50">
       </div>
-        <span *ngIf="!cashierForm.get('lName').valid && cashierForm.get('lName').touched" class="help-block">
-          <span>Lastname can't be blank</span>
+        <span *ngIf="!cashierForm.get('lastName').valid && cashierForm.get('lastName').touched" class="help-block">
+          <span>Last Name can't be blank</span>
         </span>
     </div>
     <div class="form-group">
