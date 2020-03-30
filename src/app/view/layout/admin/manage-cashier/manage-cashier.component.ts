@@ -13,7 +13,7 @@ export class ManageCashierComponent implements OnInit, OnDestroy {
   users: User[] = [];
   // We use this trigger because fetching the list of persons can be quite long,
   // thus we ensure the data is fetched before rendering
-  dtTrigger: Subject<any> = new Subject();
+  dtTrigger: Subject<any> = new Subject<any>();
 
   constructor(private adminService: AdminService) { }
 
@@ -35,10 +35,10 @@ export class ManageCashierComponent implements OnInit, OnDestroy {
     this.dtTrigger.unsubscribe();
   }
 
-  private extractData(res: Response) {
-    const body = res.json();
-    return body.data || {};
-  }
+  // private extractData(res: Response) {
+  //   const body = res.json();
+  //   return body.data || {};
+  // }
 
   onDelete(id: number) {
     this.adminService.deleteCashier(id).subscribe(data => {

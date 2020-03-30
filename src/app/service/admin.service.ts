@@ -20,7 +20,7 @@ export class AdminService {
   }
 
   getAllCashier() {
-    return this.httpClient.get(`${this.backend}/food-court/cashier/lists`);
+    return this.httpClient.get<User[]>(`${this.backend}/food-court/cashier/lists`);
   }
 
   deleteCashier(id: number) {
