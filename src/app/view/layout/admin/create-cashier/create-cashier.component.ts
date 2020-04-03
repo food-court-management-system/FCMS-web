@@ -32,8 +32,8 @@ export class CreateCashierComponent implements OnInit, CanComponentDeactivate {
 
   createForm() {
     this.cashierForm = new FormGroup({
-      username: new FormControl(null, [Validators.required, Validators.maxLength(20)]),
-      password: new FormControl(null, [Validators.required, Validators.maxLength(20)]),
+      username: new FormControl(null, [Validators.required, Validators.minLength(6), Validators.maxLength(20)]),
+      password: new FormControl(null, [Validators.required, Validators.minLength(6), Validators.maxLength(20)]),
       firstName: new FormControl(null, [Validators.required, Validators.maxLength(50)]),
       lastName: new FormControl(null, [Validators.required, Validators.maxLength(50)]),
       age: new FormControl(0, [Validators.required, Validators.min(18), Validators.max(60)])
@@ -43,6 +43,7 @@ export class CreateCashierComponent implements OnInit, CanComponentDeactivate {
   onSubmit() {
     this.formSubmitted = true;
     this.markControlsAsTouched();
+    console.log(this.cashierForm.value);
     this.adminService.createNewCashier(this.cashierForm.value).subscribe((data: any) => {
       if (data.code === 200) {
         alert('Add new cashier successfully');
@@ -54,10 +55,7 @@ export class CreateCashierComponent implements OnInit, CanComponentDeactivate {
     }, (error) => {
       console.log(error);
       if (error === 'This username is existed please use another username') {
-        alert('Username has already existed. Please try another username')
-        this.cashierForm.get('username').hasError('invalid', 'Username has already existed');
-      } else {
-        alert('Server is off. Please try again later');
+        this.cashierForm.get('username').setErrors({['invalid']: true});
       }
       // this.catchError.error = data;
       // this.router.navigate(['/error']);
