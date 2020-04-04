@@ -1,8 +1,9 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {AdminService} from '../../../../service/admin.service';
 import {User} from '../../../../dtos/user.dto';
 import {Subject} from 'rxjs';
 import {FoodStallDto} from '../../../../dtos/foodStall.dto';
+import {DataTableDirective} from 'angular-datatables';
 
 @Component({
   selector: 'app-manage-fs',
@@ -10,6 +11,8 @@ import {FoodStallDto} from '../../../../dtos/foodStall.dto';
   styleUrls: ['./manage-fs.component.css']
 })
 export class ManageFsComponent implements OnInit, OnDestroy {
+  @ViewChild(DataTableDirective, {static: false})
+  dtElement: DataTableDirective;
   dtOptions: DataTables.Settings = {};
   fss: FoodStallDto[] = [];
   // We use this trigger because fetching the list of persons can be quite long,
@@ -41,17 +44,19 @@ export class ManageFsComponent implements OnInit, OnDestroy {
   // }
 
   onDelete(id: number) {
-    // this.adminService.deleteCashier(id).subscribe(data => {
-    //   console.log(data);
-    // }, error => {
-    //   console.log(error);
-    // });
-    // this.adminService.getAllCashier().subscribe(users => {
-    //   console.log(users);
-    //   this.users = users;
-    //   // Calling the DT trigger to manually render the table
-    //   this.dtTrigger.next();
-    // });
+    if (confirm('Delete Food Stall will disable all the FS Manager and FS Staff account. Are you sure?')) {
+      this.adminService.deleteFS(id).subscribe(data => {
+        this.adminService.getAllFS().subscribe(fss => {
+          this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+            dtInstance.destroy();
+            this.fss = fss;
+            this.dtTrigger.next();
+          });
+        });
+      }, error => {
+        console.log(error);
+      });
+    }
   }
 
 }

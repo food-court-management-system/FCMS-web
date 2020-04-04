@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-food-stall',
@@ -7,9 +7,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FoodStallManagerComponent implements OnInit {
 
-  constructor() { }
-
   ngOnInit() {
   }
-
 }
+
+

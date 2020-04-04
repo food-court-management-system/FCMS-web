@@ -2,13 +2,30 @@
 <br/>
 <div *ngIf="role === 'cashier'">
   <div class="row">
-    <a [routerLink]="['/cashier']" [routerLinkActiveOptions]="{exact: true}" routerLinkActive="active" class="menu">List all customer</a>
+    <a [routerLink]="['/cashier/customer']" routerLinkActive="active" class="menu">Manage Customer</a>
   </div>
   <div class="row">
-    <a [routerLink]="['/cashier']" [routerLinkActiveOptions]="{exact: true}" routerLinkActive="active" class="menu">Deposit</a>
+    <a [routerLink]="['/cashier/customer/facebook']" routerLinkActive="active" class="submenu">Facebook</a>
   </div>
   <div class="row">
-    <a [routerLink]="['/cashier']" [routerLinkActiveOptions]="{exact: true}" routerLinkActive="active" class="menu">Withdraw</a>
+    <a [routerLink]="['/cashier/customer/google']" routerLinkActive="active" class="submenu">Google</a>
+  </div>
+  <br/>
+  <br/>
+  <div class="row">
+    <a [routerLink]="['/cashier/customer/scan']" [routerLinkActiveOptions]="{exact: true}" routerLinkActive="active" class="menu">Scan QR Code</a>
+  </div>
+</div>
+
+<div *ngIf="role === 'fsmanager'">
+  <div class="row">
+    <a [routerLink]="['/fsmanager/fss']" [routerLinkActiveOptions]="{exact: true}" routerLinkActive="active" class="menu">Manage FS Staff</a>
+  </div>
+  <div class="row">
+    <a [routerLink]="['/fsmanager/fss/create']" routerLinkActive="active" class="submenu">Create FS Staff Account</a>
+  </div>
+  <div class="row">
+    <a [routerLink]="['/fsmanager/fs']" [routerLinkActiveOptions]="{exact: true}" routerLinkActive="active" class="menu">Food Stall Information</a>
   </div>
 </div>
 
@@ -44,7 +61,7 @@
   <br/>
   <br/>
   <div class="row">
-    <a [routerLink]="['/admin/foodcourt']" routerLinkActive="active" class="menu">Edit Food Court Information</a>
+    <a [routerLink]="['/admin/foodcourt']" routerLinkActive="active" class="menu">Food Court Information</a>
   </div>
   <br/>
   <br/>
