@@ -47,15 +47,15 @@ export class ManageCashierComponent implements OnInit, OnDestroy {
     if (confirm('Do you want to delete this Cashier?')) {
       this.adminService.deleteCashier(id).subscribe(data => {
         console.log(data);
+        this.adminService.getAllCashier().subscribe(users => {
+          this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+            dtInstance.destroy();
+            this.users = users;
+            this.dtTrigger.next();
+          });
+        });
       }, error => {
         console.log(error);
-      });
-      this.adminService.getAllCashier().subscribe(users => {
-        this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-          dtInstance.destroy();
-          this.users = users;
-          this.dtTrigger.next();
-        });
       });
     }
   }
