@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { AppSettings } from '../appsetting';
 
 @Injectable({
   providedIn: 'root'
 })
 export class FoodstallStaffService {
 
-  backend = '/api';
+  backend = AppSettings.BASEURL;
   constructor(private httpClient: HttpClient) {}
 
   getAllCartPending() {

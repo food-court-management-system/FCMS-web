@@ -69,8 +69,7 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "fcms-front:build",
-            "proxyConfig": "proxy.conf.json"
+            "browserTarget": "fcms-front:build"
           },
           "configurations": {
             "production": {

@@ -4,13 +4,14 @@ import {AuthenticationService} from './authentication.service';
 import {User} from '../dtos/user.dto';
 import {AllFSManagerDto} from '../dtos/allFSManager.dto';
 import {FoodStallDto} from '../dtos/foodStall.dto';
+import { AppSettings } from '../appsetting';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AdminService {
 
-  backend = '/api';
+  backend = AppSettings.BASEURL;
   constructor(private httpClient: HttpClient, private authenticationService: AuthenticationService) {}
 
   getInfo() {
