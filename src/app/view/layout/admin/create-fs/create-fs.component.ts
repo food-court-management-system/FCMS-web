@@ -67,10 +67,11 @@ export class CreateFsComponent implements OnInit {
     .subscribe((res) => {
         // console.log(res);
         // this.uploadedFilePath = res.data.filePath;
-        alert('SUCCESS !!');
+        alert('Create new food stall successfully');
+        this.router.navigate(['/admin/foodstall']);
     },
     (error) => {
-      console.log(error)
+      console.log(error);
     });
   }
 

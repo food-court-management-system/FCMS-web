@@ -43,15 +43,10 @@ export class CreateCashierComponent implements OnInit, CanComponentDeactivate {
   onSubmit() {
     this.formSubmitted = true;
     this.markControlsAsTouched();
-    console.log(this.cashierForm.value);
     this.adminService.createNewCashier(this.cashierForm.value).subscribe((data: any) => {
-      if (data.code === 200) {
-        alert('Add new cashier successfully');
-        this.router.navigate(['/admin']);
-      } else {
-        alert('Something went wrong');
-        this.formSubmitted = false;
-      }
+      console.log(data);
+      alert('Add new cashier successfully');
+      this.router.navigate(['/admin/cashier']);
     }, (error) => {
       console.log(error);
       if (error === 'This username is existed please use another username') {

@@ -20,6 +20,12 @@ import {CreateFsComponent} from './admin/create-fs/create-fs.component';
 import {PersonalInformationComponent} from './personal-information/personal-information.component';
 import {ManageFsComponent} from './admin/manage-fs/manage-fs.component';
 import { ManageCartComponent } from './food-stall-staff/manage-cart/manage-cart.component';
+import {ManageFacebookCustomerComponent} from './cashier/manage-facebook-customer/manage-facebook-customer.component';
+import {ManageGoogleCustomerComponent} from './cashier/manage-google-customer/manage-google-customer.component';
+import {WithdrawComponent} from './cashier/withdraw/withdraw.component';
+import {DepositComponent} from './cashier/deposit/deposit.component';
+import {ManageFssComponent} from './food-stall-manager/manage-fss/manage-fss.component';
+import {CreateFssComponent} from './food-stall-manager/create-fss/create-fss.component';
 
 const layoutRoutes: Routes = [
   { path: '',
@@ -37,12 +43,23 @@ const layoutRoutes: Routes = [
           { path: 'foodstall', component: ManageFsComponent},
           { path: 'foodstall/create', component: CreateFsComponent}
         ] },
-      { path: 'cashier', component: CashierComponent, canActivate: [CashierGuard] },
-      { path: 'fsmanager', component: FoodStallManagerComponent, canActivate: [FoodstallManagerGuard] },
-      { path: 'fsstaff', component: FoodStallStaffComponent, canActivate: [FoodstallStaffGuard],children: [
-        { path: '' , component: ManageCartComponent},
-        { path: 'cart', component: ManageCartComponent},
+      { path: 'cashier', component: CashierComponent, canActivate: [CashierGuard], children: [
+          { path: '', component: CashierComponent},
+          { path: 'customer', component: ManageFacebookCustomerComponent},
+          { path: 'customer/facebook', component: ManageFacebookCustomerComponent},
+          { path: 'customer/google', component: ManageGoogleCustomerComponent},
+          { path: 'customer/:id/withdraw', component: WithdrawComponent},
+          { path: 'customer/:id/deposit', component: DepositComponent}
         ] },
+      { path: 'fsmanager', component: FoodStallManagerComponent, canActivate: [FoodstallManagerGuard], children: [
+          { path: '', component: FoodStallManagerComponent},
+          { path: 'fss', component: ManageFssComponent},
+          { path: 'fss/create', component: CreateFssComponent}
+        ] },
+        { path: 'fsstaff', component: FoodStallStaffComponent, canActivate: [FoodstallStaffGuard],children: [
+          { path: '' , component: ManageCartComponent},
+          { path: 'cart', component: ManageCartComponent},
+          ] },
       { path: 'personal-information', component: PersonalInformationComponent }
     ]}
 ]
