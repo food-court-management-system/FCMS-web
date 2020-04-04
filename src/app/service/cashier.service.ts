@@ -4,13 +4,14 @@ import {AuthenticationService} from './authentication.service';
 import {AllFSManagerDto} from '../dtos/allFSManager.dto';
 import {CustomerDto} from '../dtos/customer.dto';
 import {WalletDto} from '../dtos/wallet.dto';
+import { AppSettings } from '../appsetting';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CashierService {
 
-  backend = '/api';
+  backend = AppSettings.BASEURL;
   constructor(private httpClient: HttpClient, private authenticationService: AuthenticationService) {}
 
   getAllFacebookCustomer() {
@@ -23,8 +24,7 @@ export class CashierService {
 
   updateBalance(id: number, balance: string, assert: string) {
     const param = new HttpParams().set('assert', assert).set('balance', balance);
-    return this.httpClient.put(`${this.backend}/customer/wallet/${id}/edit`, {params: param} );
-    // return this.httpClient.put(`${this.backend}/customer/wallet/${id}/edit`, null, {params: param} );
+    return this.httpClient.put(`${this.backend}/customer/wallet/${id}/edit`, null, {params: param} );
   }
 
   getWalletDetail(id: number) {
