@@ -7,24 +7,29 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 import { ErrorPageComponent } from './error-page/error-page.component';
 import { LoginComponent } from './view/login/login.component';
 import {LayoutModule} from './view/layout/layout.module';
-import {ReactiveFormsModule} from '@angular/forms';
+import {ReactiveFormsModule, FormsModule} from '@angular/forms';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {JwtInterceptor} from './service/jwt.interceptor';
 import {ErrorInterceptor} from './service/error.interceptor';
+import { ZXingScannerModule } from '@zxing/ngx-scanner';
+import { ScanComponent } from './view/dummy/scan/scan.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     PageNotFoundComponent,
     ErrorPageComponent,
-    LoginComponent
+    LoginComponent,
+    ScanComponent
   ],
   imports: [
     HttpClientModule,
     ReactiveFormsModule,
     BrowserModule,
     AppRoutingModule,
-    LayoutModule
+    LayoutModule,
+    ZXingScannerModule,
+    FormsModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },

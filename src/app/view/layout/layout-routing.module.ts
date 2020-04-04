@@ -19,6 +19,7 @@ import {FoodStallStaffComponent} from './food-stall-staff/food-stall-staff.compo
 import {CreateFsComponent} from './admin/create-fs/create-fs.component';
 import {PersonalInformationComponent} from './personal-information/personal-information.component';
 import {ManageFsComponent} from './admin/manage-fs/manage-fs.component';
+import { ManageCartComponent } from './food-stall-staff/manage-cart/manage-cart.component';
 import {ManageFacebookCustomerComponent} from './cashier/manage-facebook-customer/manage-facebook-customer.component';
 import {ManageGoogleCustomerComponent} from './cashier/manage-google-customer/manage-google-customer.component';
 import {WithdrawComponent} from './cashier/withdraw/withdraw.component';
@@ -55,7 +56,10 @@ const layoutRoutes: Routes = [
           { path: 'fss', component: ManageFssComponent},
           { path: 'fss/create', component: CreateFssComponent}
         ] },
-      { path: 'fsstaff', component: FoodStallStaffComponent, canActivate: [FoodstallStaffGuard] },
+        { path: 'fsstaff', component: FoodStallStaffComponent, canActivate: [FoodstallStaffGuard],children: [
+          { path: '' , component: ManageCartComponent},
+          { path: 'cart', component: ManageCartComponent},
+          ] },
       { path: 'personal-information', component: PersonalInformationComponent }
     ]}
 ]

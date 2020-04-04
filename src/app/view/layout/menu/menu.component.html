@@ -69,3 +69,9 @@
     <a [routerLink]="['/admin/statistics']" [routerLinkActiveOptions]="{exact: true}" routerLinkActive="active" class="menu">View Statistics</a>
   </div>
 </div>
+
+<div *ngIf="role === 'fsstaff'">
+  <div class="row">
+    <a [routerLink]="['/fsstaff/cart']" routerLinkActive="active" class="menu">Manage Cart</a>
+  </div>
+</div>

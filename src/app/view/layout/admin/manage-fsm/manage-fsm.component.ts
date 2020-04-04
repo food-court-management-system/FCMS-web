@@ -1,6 +1,5 @@
 import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {AdminService} from '../../../../service/admin.service';
-import {User} from '../../../../dtos/user.dto';
 import {Subject} from 'rxjs';
 import {AllFSManagerDto} from '../../../../dtos/allFSManager.dto';
 import {DataTableDirective} from 'angular-datatables';
@@ -38,11 +37,6 @@ export class ManageFsmComponent implements OnInit, OnDestroy {
     // Do not forget to unsubscribe the event
     this.dtTrigger.unsubscribe();
   }
-
-  // private extractData(res: Response) {
-  //   const body = res.json();
-  //   return body.data || {};
-  // }
 
   onDelete(id: number) {
     if (confirm('Do you want to delete this FS Manager?')) {

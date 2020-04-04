@@ -3,12 +3,13 @@ import {HttpClient} from '@angular/common/http';
 import {BehaviorSubject, Observable} from 'rxjs';
 import {User} from '../dtos/user.dto';
 import {map} from 'rxjs/operators';
+import { AppSettings } from '../appsetting';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthenticationService {
-  backend: string = '/api';
+  backend: string = AppSettings.BASEURL;
 
   private currentUserSubject: BehaviorSubject<User>;
   public currentUser: Observable<User>;
