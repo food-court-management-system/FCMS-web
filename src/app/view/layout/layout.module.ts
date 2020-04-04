@@ -24,6 +24,7 @@ import {FoodstallStaffGuard} from '../../service/foodstall-staff.guard';
 import { CreateFsComponent } from './admin/create-fs/create-fs.component';
 import { PersonalInformationComponent } from './personal-information/personal-information.component';
 import { ManageFsComponent } from './admin/manage-fs/manage-fs.component';
+import { ManageCartComponent } from './food-stall-staff/manage-cart/manage-cart.component';
 
 @NgModule({
   declarations: [
@@ -43,7 +44,8 @@ import { ManageFsComponent } from './admin/manage-fs/manage-fs.component';
     FoodStallStaffComponent,
     CreateFsComponent,
     PersonalInformationComponent,
-    ManageFsComponent
+    ManageFsComponent,
+    ManageCartComponent
   ],
   imports: [
     LayoutRoutingModule,

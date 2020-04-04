@@ -1,8 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 import {AuthenticationService} from '../../service/authentication.service';
-import {HttpParams} from '@angular/common/http';
 import {first} from 'rxjs/operators';
 
 @Component({
@@ -11,13 +9,13 @@ import {first} from 'rxjs/operators';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  loginForm: FormGroup;
   loading = false;
   submitted = false;
   returnUrl: string;
-  msgError: string;
-
-  constructor(private formBuilder: FormBuilder,
+  userData;
+  usernameError = false;
+  passwordError = false;
+  constructor(
               private route: ActivatedRoute,
               private router: Router,
               private authenticationService: AuthenticationService) {
@@ -35,32 +33,32 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.loginForm = this.formBuilder.group({
-      username: ['', Validators.required],
-      password: ['', Validators.required]
-    });
+    this.userData = {
+      username: '',
+      password: ''
+    };
 
     // get return url from route parameters or default to '/'
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
   }
 
-  // convenience getter for easy access to form fields
-  get f() { return this.loginForm.controls; }
-
   onSubmit() {
     this.submitted = true;
-    this.loginForm.markAllAsTouched();
-
-    // stop here if form is invalid
-    if (this.loginForm.invalid) {
+    if (this.userData.username.length < 5 || this.userData.username.length > 16) {
+      this.usernameError = true;
+    }
+    if (this.userData.password.length < 5 || this.userData.password.length > 16) {
+      this.passwordError = true;
+    }
+    if (this.usernameError || this.passwordError) {
       return;
     }
-
     this.loading = true;
-    this.authenticationService.login(this.loginForm.value)
+    this.authenticationService.login(this.userData)
       .pipe(first())
       .subscribe(
         data => {
+          this.loading = false;
           this.router.navigate([this.returnUrl]);
         },
         (error: any) => {

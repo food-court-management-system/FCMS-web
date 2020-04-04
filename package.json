@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve --proxy-config proxy.conf.json --o",
+    "start": "ng serve --o",
+    "deploy": "ng build && aws s3 sync ./dist/fcms-front s3://fcms-front",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
@@ -19,6 +20,7 @@
     "@angular/platform-browser": "~8.2.11",
     "@angular/platform-browser-dynamic": "~8.2.11",
     "@angular/router": "~8.2.11",
+    "@zxing/ngx-scanner": "^3.0.0",
     "angular-datatables": "^9.0.1",
     "bootstrap": "^3.4.1",
     "datatables.net": "^1.10.20",

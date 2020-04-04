@@ -19,6 +19,7 @@ import {FoodStallStaffComponent} from './food-stall-staff/food-stall-staff.compo
 import {CreateFsComponent} from './admin/create-fs/create-fs.component';
 import {PersonalInformationComponent} from './personal-information/personal-information.component';
 import {ManageFsComponent} from './admin/manage-fs/manage-fs.component';
+import { ManageCartComponent } from './food-stall-staff/manage-cart/manage-cart.component';
 
 const layoutRoutes: Routes = [
   { path: '',
@@ -38,7 +39,10 @@ const layoutRoutes: Routes = [
         ] },
       { path: 'cashier', component: CashierComponent, canActivate: [CashierGuard] },
       { path: 'fsmanager', component: FoodStallManagerComponent, canActivate: [FoodstallManagerGuard] },
-      { path: 'fsstaff', component: FoodStallStaffComponent, canActivate: [FoodstallStaffGuard] },
+      { path: 'fsstaff', component: FoodStallStaffComponent, canActivate: [FoodstallStaffGuard],children: [
+        { path: '' , component: ManageCartComponent},
+        { path: 'cart', component: ManageCartComponent},
+        ] },
       { path: 'personal-information', component: PersonalInformationComponent }
     ]}
 ]
