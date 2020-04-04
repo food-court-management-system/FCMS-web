@@ -16,13 +16,13 @@
   </thead>
   <tbody>
   <tr *ngFor="let fsm of fsms">
-    <td>{{ fsm.userId }}</td>
+    <td>{{ fsm.id }}</td>
     <td>{{ fsm.username }}</td>
     <td>{{ fsm.firstName }}</td>
     <td>{{ fsm.lastName }}</td>
     <td>{{ fsm.age }}</td>
     <td>{{ fsm.fsid }} - {{ fsm.fsname }}</td>
-    <td><button (click)="onDelete(fsm.userId)" type="button">Delete</button></td>
+    <td><button (click)="onDelete(fsm.id)" type="button">Delete</button></td>
   </tr>
   </tbody>
 </table>

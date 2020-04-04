@@ -1,8 +1,8 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {AdminService} from '../../../../service/admin.service';
-import {User} from '../../../../dtos/user.dto';
 import {Subject} from 'rxjs';
 import {AllFSManagerDto} from '../../../../dtos/allFSManager.dto';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-manage-fsm',
@@ -17,7 +17,7 @@ export class ManageFsmComponent implements OnInit, OnDestroy {
   // thus we ensure the data is fetched before rendering
   dtTrigger: Subject<any> = new Subject<any>();
 
-  constructor(private adminService: AdminService) { }
+  constructor(private adminService: AdminService, private router: Router) { }
 
   ngOnInit(): void {
     this.dtOptions = {
@@ -36,22 +36,15 @@ export class ManageFsmComponent implements OnInit, OnDestroy {
     this.dtTrigger.unsubscribe();
   }
 
-  // private extractData(res: Response) {
-  //   const body = res.json();
-  //   return body.data || {};
-  // }
-
   onDelete(id: number) {
     this.adminService.deleteCashier(id).subscribe(data => {
       console.log(data);
+      this.router.navigateByUrl('/RefreshComponent', { skipLocationChange: true }).then(() => {
+        this.router.navigate(['/admin/fsm']);
+    }); 
     }, error => {
       console.log(error);
     });
-    // this.adminService.getAllCashier().subscribe(allFSM => {
-    //   this.fsms = allFSM;
-    //   // Calling the DT trigger to manually render the table
-    //   this.dtTrigger.next();
-    // });
   }
 
 }

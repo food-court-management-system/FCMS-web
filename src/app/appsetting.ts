@@ -1,3 +1,3 @@
 export class AppSettings {
-    public static BASEURL = 'https://foodcout.ap-southeast-1.elasticbeanstalk.com';
+    public static BASEURL = 'https://elb.fcms.xyz';
 }
