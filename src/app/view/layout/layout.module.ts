@@ -31,6 +31,10 @@ import { ManageFacebookCustomerComponent } from './cashier/manage-facebook-custo
 import { ManageGoogleCustomerComponent } from './cashier/manage-google-customer/manage-google-customer.component';
 import { WithdrawComponent } from './cashier/withdraw/withdraw.component';
 import { DepositComponent } from './cashier/deposit/deposit.component';
+import { FoodStallInformationComponent } from './food-stall-manager/food-stall-information/food-stall-information.component';
+import { ManageFoodComponent } from './food-stall-manager/manage-food/manage-food.component';
+import { CreateAndEditFoodComponent } from './food-stall-manager/create-and-edit-food/create-and-edit-food.component';
+import { EditFoodStallComponent } from './food-stall-manager/edit-food-stall/edit-food-stall.component';
 
 @NgModule({
   declarations: [
@@ -57,7 +61,11 @@ import { DepositComponent } from './cashier/deposit/deposit.component';
     ManageFacebookCustomerComponent,
     ManageGoogleCustomerComponent,
     WithdrawComponent,
-    DepositComponent
+    DepositComponent,
+    FoodStallInformationComponent,
+    ManageFoodComponent,
+    CreateAndEditFoodComponent,
+    EditFoodStallComponent
   ],
   imports: [
     LayoutRoutingModule,

@@ -13,19 +13,29 @@
   <br/>
   <br/>
   <div class="row">
-    <a [routerLink]="['/cashier/customer/scan']" [routerLinkActiveOptions]="{exact: true}" routerLinkActive="active" class="menu">Scan QR Code</a>
+    <a [routerLink]="['/cashier/customer/scan']" routerLinkActive="active" class="menu">Scan QR Code</a>
   </div>
 </div>
 
 <div *ngIf="role === 'fsmanager'">
   <div class="row">
-    <a [routerLink]="['/fsmanager/fss']" [routerLinkActiveOptions]="{exact: true}" routerLinkActive="active" class="menu">Manage FS Staff</a>
+    <a [routerLink]="['/fsmanager/fss']" routerLinkActive="active" class="menu">Manage FS Staff</a>
   </div>
   <div class="row">
     <a [routerLink]="['/fsmanager/fss/create']" routerLinkActive="active" class="submenu">Create FS Staff Account</a>
   </div>
+  <br/>
+  <br/>
   <div class="row">
-    <a [routerLink]="['/fsmanager/fs']" [routerLinkActiveOptions]="{exact: true}" routerLinkActive="active" class="menu">Food Stall Information</a>
+    <a [routerLink]="['/fsmanager/food']" routerLinkActive="active" class="menu">Manage Food</a>
+  </div>
+  <div class="row">
+    <a [routerLink]="['/fsmanager/food/create']" routerLinkActive="active" class="submenu">Create new Food</a>
+  </div>
+  <br/>
+  <br/>
+  <div class="row">
+    <a [routerLink]="['/fsmanager/fs']" routerLinkActive="active" class="menu">Food Stall Information</a>
   </div>
 </div>
 
@@ -66,7 +76,7 @@
   <br/>
   <br/>
   <div class="row">
-    <a [routerLink]="['/admin/statistics']" [routerLinkActiveOptions]="{exact: true}" routerLinkActive="active" class="menu">View Statistics</a>
+    <a [routerLink]="['/admin/statistics']" routerLinkActive="active" class="menu">View Statistics</a>
   </div>
 </div>
 

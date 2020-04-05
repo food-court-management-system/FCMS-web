@@ -47,7 +47,7 @@
       </div>
       <div class="col-sm-4">
         <span *ngIf="!withdrawForm.get('balance').valid && withdrawForm.get('balance').touched" class="help-block">
-          <span>Amount withdrawn must lower than your current balance</span>
+          <span>Amount withdrawn must lower than your current balance and greater than 1000 vnd</span>
         </span>
       </div>
     </div>

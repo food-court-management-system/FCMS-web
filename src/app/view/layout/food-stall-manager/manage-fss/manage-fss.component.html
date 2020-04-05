@@ -14,13 +14,13 @@
   </tr>
   </thead>
   <tbody>
-  <tr *ngFor="let fss of fsss">
-    <td>{{ fss.userId }}</td>
-    <td>{{ fss.username }}</td>
-    <td>{{ fss.firstName }}</td>
-    <td>{{ fss.lastName }}</td>
-    <td>{{ fss.age }}</td>
-    <td><button class="btn btn-danger" (click)="onDelete(fss.userId)" type="button">Delete</button></td>
+  <tr *ngFor="let u of users">
+    <td>{{ u.userId }}</td>
+    <td>{{ u.username }}</td>
+    <td>{{ u.firstName }}</td>
+    <td>{{ u.lastName }}</td>
+    <td>{{ u.age }}</td>
+    <td><button class="btn btn-danger glyphicon-trash glyphicon" (click)="onDelete(u.userId)" type="button"></button></td>
   </tr>
   </tbody>
 </table>

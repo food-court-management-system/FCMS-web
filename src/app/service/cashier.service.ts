@@ -5,6 +5,7 @@ import {AllFSManagerDto} from '../dtos/allFSManager.dto';
 import {CustomerDto} from '../dtos/customer.dto';
 import {WalletDto} from '../dtos/wallet.dto';
 import { AppSettings } from '../appsetting';
+import {CustomerStatusDto} from '../dtos/customer-status.dto';
 
 @Injectable({
   providedIn: 'root'
@@ -29,6 +30,10 @@ export class CashierService {
 
   getWalletDetail(id: number) {
     return this.httpClient.get<WalletDto>(`${this.backend}/customer/${id}/wallet/detail`);
+  }
+
+  blockOrReactivateUser(data: CustomerStatusDto) {
+    return this.httpClient.put(`${this.backend}/customer/edit`, data);
   }
 
 }

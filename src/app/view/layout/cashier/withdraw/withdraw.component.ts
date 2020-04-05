@@ -45,10 +45,10 @@ export class WithdrawComponent implements OnInit, CanComponentDeactivate {
       this.walletId = data.id;
     }, error => {
       alert(error);
-    })
+    });
     this.withdrawForm = new FormGroup({
       assert: new FormControl('withdrawals'),
-      balance: new FormControl(0, [Validators.required, Validators.min(0)]),
+      balance: new FormControl(1000, [Validators.required, Validators.min(1000)]),
     });
   }
 
@@ -57,13 +57,19 @@ export class WithdrawComponent implements OnInit, CanComponentDeactivate {
     this.markControlsAsTouched();
     if (+this.withdrawForm.get('balance').value > this.balance) {
       this.withdrawForm.get('balance').setErrors({['invalid']: true});
+      this.formSubmitted = false;
+      return;
+    }
+    if (this.withdrawForm.invalid) {
+      this.formSubmitted = false;
       return;
     }
     this.cashierService.updateBalance(this.walletId, this.withdrawForm.get('balance').value, this.withdrawForm.get('assert').value)
       .subscribe((data: any) => {
       console.log(data);
       alert('Withdraw successfully');
-      this.router.navigate(['/cashier/customer']);
+      this.createForm();
+      // this.router.navigate(['/cashier/customer']);
     }, (error) => {
       alert(error);
       // this.catchError.error = data;

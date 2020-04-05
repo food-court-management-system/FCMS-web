@@ -47,7 +47,6 @@ export class AdminService {
     return this.httpClient.delete(`${this.backend}/food-stall/${id}`);
   }
 
-  // Hàm chưa có
   createNewFoodStall(data: FormData) {
     return this.httpClient.post(`${this.backend}/food-stall/create`, data);
   }

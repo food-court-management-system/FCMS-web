@@ -1,0 +1,113 @@
+<div class="row" style="padding-left: 40px;">
+  <br>
+  <h4 *ngIf="!editMode">Create New Food</h4>
+  <h4 *ngIf="editMode">Update Food</h4>
+  <hr>
+</div>
+<!--<div class="row" *ngIf="showError">-->
+<!--<div class="alert alert-danger alert-dismissible">-->
+<!--<a class="close" data-dismiss="alert" aria-label="close">&times;</a>-->
+<!--All fields are required-->
+<!--</div>-->
+<!--</div>-->
+<div>
+  <br>
+  <form class="form-horizontal" [formGroup]="foodForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <div class="col-sm-1"></div>
+      <label class="control-label col-sm-2" for="2">Food Stall name  <span>*</span></label>
+      <div class="col-sm-5">
+        <input formControlName="foodName" type="text" class="form-control" id="2" maxlength="50">
+      </div>
+      <div class="col-sm-4">
+        <span *ngIf="!foodForm.get('foodName').valid && foodForm.get('foodName').touched" class="help-block">
+          <span>Name is required</span>
+        </span>
+      </div>
+
+    </div>
+    <div class="form-group">
+      <div class="col-sm-1"></div>
+      <label class="control-label col-sm-2" for="3">Description  <span>*</span></label>
+      <div class="col-sm-5">
+        <textarea style="height: 100px;" formControlName="foodDescription" type="text" class="form-control" id="3" maxlength="50"></textarea>
+      </div>
+      <div class="col-sm-4">
+        <span *ngIf="!foodForm.get('foodDescription').valid && foodForm.get('foodDescription').touched" class="help-block">
+          <span>Description is required</span>
+        </span>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <div class="col-sm-1"></div>
+      <label class="control-label col-sm-2" for="4">Origin Price  <span>*</span></label>
+      <div class="col-sm-5">
+        <input min="1000" formControlName="originPrice" type="number" class="form-control" id="4" >
+      </div>
+      <div class="col-sm-4">
+        <span *ngIf="!foodForm.get('originPrice').valid && foodForm.get('originPrice').touched" class="help-block">
+          <span>Origin Price is required</span>
+        </span>
+      </div>
+      <div class="col-sm-1">
+        <button *ngIf="!isSale" class="btn btn-success" type="button" (click)="onSale()">Sale</button>
+      </div>
+    </div>
+
+    <div class="form-group" *ngIf="isSale">
+      <div class="col-sm-1"></div>
+      <label class="control-label col-sm-2" for="5">Selling Price  <span>*</span></label>
+      <div class="col-sm-5">
+        <input min="1000" formControlName="retailPrice" type="number" class="form-control" id="5" >
+      </div>
+      <div class="col-sm-4">
+        <span *ngIf="!foodForm.get('retailPrice').valid && foodForm.get('retailPrice').touched" class="help-block">
+          <span>Selling Price is required. Selling Price must lower than or equal to Origin Price</span>
+        </span>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <div class="col-sm-1"></div>
+      <label class="control-label col-sm-2">Category</label>
+      <div class="div col-sm-5">
+        <select formControlName="foodType" class="form-control default-width" id="group">
+          <option *ngFor="let type of types" value="{{ type.typeName }}">{{ type.typeName }}</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6 offset-md-3">
+        <h3>Choose File</h3>
+        <div class="form-group">
+          <input type="file" name="image" (change)="fileProgress($event)" />
+        </div>
+        <div *ngIf="fileUploadProgress">
+          Upload progress: {{ fileUploadProgress }}
+        </div>
+        <div class="image-preview mb-3" *ngIf="previewUrl">
+          <img [src]="previewUrl" height="300" />
+        </div>
+
+        <div class="mb-3" *ngIf="uploadedFilePath">
+          {{uploadedFilePath}}
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <hr>
+      <div class="col-sm-6"></div>
+      <div class="col-sm-2">
+        <button class="btn btn-default" style="width: 100%" type="button" (click)="onClear()">Clear</button>
+      </div>
+      <div class="col-sm-1"></div>
+      <div class="col-md-2">
+        <button *ngIf="!editMode" class="btn btn-primary" style="width: 100%" type="submit">Create</button>
+        <button *ngIf="editMode" class="btn btn-primary" style="width: 100%" type="submit">Update</button>
+      </div>
+    </div>
+  </form>
+</div>
