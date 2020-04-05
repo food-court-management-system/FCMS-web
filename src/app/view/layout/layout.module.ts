@@ -33,6 +33,7 @@ import { WithdrawComponent } from './cashier/withdraw/withdraw.component';
 import { DepositComponent } from './cashier/deposit/deposit.component';
 import { OrderDetailComponent } from './food-stall-staff/order-detail/order-detail.component';
 import { NgxLoadingModule } from 'ngx-loading';
+import { ChangePasswordComponent } from './change-password/change-password.component';
 
 @NgModule({
   declarations: [
@@ -60,7 +61,8 @@ import { NgxLoadingModule } from 'ngx-loading';
     ManageGoogleCustomerComponent,
     WithdrawComponent,
     DepositComponent,
-    OrderDetailComponent
+    OrderDetailComponent,
+    ChangePasswordComponent
   ],
   imports: [
     LayoutRoutingModule,

@@ -27,6 +27,7 @@ import {DepositComponent} from './cashier/deposit/deposit.component';
 import {ManageFssComponent} from './food-stall-manager/manage-fss/manage-fss.component';
 import {CreateFssComponent} from './food-stall-manager/create-fss/create-fss.component';
 import { OrderDetailComponent } from './food-stall-staff/order-detail/order-detail.component';
+import { ChangePasswordComponent } from './change-password/change-password.component';
 
 const layoutRoutes: Routes = [
   { path: '',
@@ -62,7 +63,8 @@ const layoutRoutes: Routes = [
           { path: 'order', component: ManageOrderComponent},
           { path: 'detail/:id', component: OrderDetailComponent},
           ] },
-      { path: 'personal-information', component: PersonalInformationComponent }
+      { path: 'personal-information', component: PersonalInformationComponent },
+      { path: 'changepass', component: ChangePasswordComponent }
     ]}
 ]
 
