@@ -13,6 +13,7 @@ import {JwtInterceptor} from './service/jwt.interceptor';
 import {ErrorInterceptor} from './service/error.interceptor';
 import { ZXingScannerModule } from '@zxing/ngx-scanner';
 import { ScanComponent } from './view/dummy/scan/scan.component';
+import { NgxLoadingModule } from 'ngx-loading';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { ScanComponent } from './view/dummy/scan/scan.component';
     AppRoutingModule,
     LayoutModule,
     ZXingScannerModule,
-    FormsModule
+    FormsModule,
+    NgxLoadingModule.forRoot({})
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },

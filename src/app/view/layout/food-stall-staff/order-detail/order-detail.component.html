@@ -1,0 +1,37 @@
+<ng-template #customLoadingTemplate>
+        <div class="custom-class">
+        </div>
+    </ng-template>
+ 
+<ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '3px',fullScreenBackdrop: true }" [template]="customLoadingTemplate"></ngx-loading>
+
+
+<div class="main-content" style="margin-top: 10px">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-danger">
+                        <h4 class="card-title ">Change Status Order</h4>
+                    </div>
+                    <div class="card-body" *ngIf="ready">
+                        <div class="text-center border border-light p-5">
+                            <input type="text" class="form-control oinput" value="{{'ID - ' + detail.id}}" readonly>
+                            <input type="text" class="form-control oinput" [value]="detail.foodName" readonly>
+                            <input type="text" class="form-control oinput" [value]="detail.foodStatus" readonly>
+                            <input type="text" class="form-control oinput" value="{{ detail.quantity + ' item'}}" readonly>
+                            <textarea class="form-control mb-4 col-md-5" rows="3" [(ngModel)]="detail.note" #message='ngModel' readonly></textarea>
+                            <div style="float: left; margin-left: 0px;" class="col-md-12">
+                                <button class="btn btn-warning col-md-2" type="submit" style="float: left; margin-left: 0px" (click)="updateOrderDetail('INPROGRESS')" *ngIf="detail.foodStatus == 'QUEUE'">INPROGRESS</button>
+                                <button class="btn btn-primary col-md-2" type="submit" style="float: left; margin-left: 10px" (click)="updateOrderDetail('READY')" *ngIf="detail.foodStatus == 'QUEUE' || detail.foodStatus == 'INPROGRESS'">READY</button>
+                                <button class="btn btn-success col-md-2" type="submit" style="float: left; margin-left: 10px" *ngIf="detail.foodStatus == 'READY'" (click)="updateOrderDetail('DELIVERY')">DELIVERY</button>
+                                <button class="btn btn-danger col-md-2" type="submit" style="float: left; margin-left: 10px" *ngIf="detail.foodStatus == 'QUEUE'" (click)="updateOrderDetail('CANCEL')">CANCEL</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
