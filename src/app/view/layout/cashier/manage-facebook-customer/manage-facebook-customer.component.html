@@ -20,8 +20,8 @@
     <td *ngIf="cus.active === true"><button class="btn btn-danger glyphicon glyphicon-ban-circle" (click)="onBlock(cus.id)"></button></td>
     <td *ngIf="cus.active === false"><button class="btn btn-success glyphicon glyphicon-ok-sign" (click)="onReactivate(cus.id)"></button></td>
     <td>
-      <button [disabled]="cus.active" class="btn btn-success fa fa-credit-card" (click)="onDeposit(cus.id)" type="button"></button>&nbsp;&nbsp;&nbsp;
-      <button [disabled]="cus.active" class="btn btn-danger fa fa-money" (click)="onWithdraw(cus.id)" type="button"></button>
+      <button [disabled]="!cus.active" class="btn btn-success fa fa-credit-card" (click)="onDeposit(cus.id)" type="button"></button>&nbsp;&nbsp;&nbsp;
+      <button [disabled]="!cus.active" class="btn btn-danger fa fa-money" (click)="onWithdraw(cus.id)" type="button"></button>
     </td>
   </tr>
   </tbody>
