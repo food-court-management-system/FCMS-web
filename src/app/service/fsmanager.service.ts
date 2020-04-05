@@ -3,13 +3,14 @@ import {AuthenticationService} from './authentication.service';
 import {HttpClient} from '@angular/common/http';
 import {CustomerDto} from '../dtos/customer.dto';
 import {User} from '../dtos/user.dto';
+import { AppSettings } from '../appsetting';
 
 @Injectable({
   providedIn: 'root'
 })
 export class FsmanagerService {
 
-  backend = '/api';
+  backend = AppSettings.BASEURL;
   constructor(private httpClient: HttpClient, private authenticationService: AuthenticationService) {}
 
   getAllFSS() {

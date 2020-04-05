@@ -1,0 +1,48 @@
+<ng-template #customLoadingTemplate>
+        <div class="custom-class">
+        </div>
+    </ng-template>
+ 
+<ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '3px',fullScreenBackdrop: true }" [template]="customLoadingTemplate"></ngx-loading>
+
+<div class="main-content" style="margin-top: 10px">
+  <div class="container-fluid">
+      <div class="row">
+          <div class="col-md-12">
+              <div class="card">
+                  <div class="card-header card-header-danger">
+                      <h4 class="card-title ">Order Management</h4>
+                  </div>
+                  <div class="card-body">
+                    <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="row-border hover">
+                      <thead>
+                      <tr>
+                        <th>ID</th>
+                        <th>Food Name</th>
+                        <th>Quantity</th>
+                        <th>Status</th>
+                        <th></th>
+                      </tr>
+                      </thead>
+                      <tbody>
+                      <tr *ngFor="let item of items">
+                        <td>{{ item.id }}</td>
+                        <td>{{ item.foodName }}</td>
+                        <td>{{ item.quantity }}</td>
+                        <td>
+                          <button type="button" class="btn btn-secondary" *ngIf="item.foodStatus == 'QUEUE'">{{ item.foodStatus }}</button>
+                          <button type="button" class="btn btn-warning" *ngIf="item.foodStatus == 'INPROGRESS'">{{ item.foodStatus }}</button>
+                          <button type="button" class="btn btn-success" *ngIf="item.foodStatus == 'READY'">{{ item.foodStatus }}</button>
+                        </td>
+                        <td><button (click)="onAction(item.id)" type="button" class="btn btn-light">Action</button></td>
+                      </tr>
+                      </tbody>
+                    </table>
+                  </div>
+              </div>
+          </div>
+
+      </div>
+  </div>
+</div>
+  
