@@ -19,7 +19,7 @@ import {FoodStallStaffComponent} from './food-stall-staff/food-stall-staff.compo
 import {CreateFsComponent} from './admin/create-fs/create-fs.component';
 import {PersonalInformationComponent} from './personal-information/personal-information.component';
 import {ManageFsComponent} from './admin/manage-fs/manage-fs.component';
-import { ManageCartComponent } from './food-stall-staff/manage-cart/manage-cart.component';
+import { ManageOrderComponent } from './food-stall-staff/manage-order/manage-order.component';
 import {ManageFacebookCustomerComponent} from './cashier/manage-facebook-customer/manage-facebook-customer.component';
 import {ManageGoogleCustomerComponent} from './cashier/manage-google-customer/manage-google-customer.component';
 import {WithdrawComponent} from './cashier/withdraw/withdraw.component';
@@ -29,6 +29,8 @@ import {CreateFssComponent} from './food-stall-manager/create-fss/create-fss.com
 import {FoodStallInformationComponent} from './food-stall-manager/food-stall-information/food-stall-information.component';
 import {ManageFoodComponent} from './food-stall-manager/manage-food/manage-food.component';
 import {CreateAndEditFoodComponent} from './food-stall-manager/create-and-edit-food/create-and-edit-food.component';
+import { OrderDetailComponent } from './food-stall-staff/order-detail/order-detail.component';
+import { ChangePasswordComponent } from './change-password/change-password.component';
 
 const layoutRoutes: Routes = [
   { path: '',
@@ -63,11 +65,13 @@ const layoutRoutes: Routes = [
           { path: 'food/edit/:id', component: CreateAndEditFoodComponent},
           { path: 'fs', component: FoodStallInformationComponent}
         ] },
-        { path: 'fsstaff', component: FoodStallStaffComponent, canActivate: [FoodstallStaffGuard], children: [
-          { path: '' , component: ManageCartComponent},
-          { path: 'cart', component: ManageCartComponent},
-          ] },
-      { path: 'personal-information', component: PersonalInformationComponent }
+        { path: 'fsstaff', component: FoodStallStaffComponent, canActivate: [FoodstallStaffGuard],children: [
+          { path: '' , component: ManageOrderComponent},
+          { path: 'order', component: ManageOrderComponent},
+          { path: 'detail/:id', component: OrderDetailComponent},
+        ] },
+      { path: 'personal-information', component: PersonalInformationComponent },
+      { path: 'changepass', component: ChangePasswordComponent }
     ]}
 ]
 

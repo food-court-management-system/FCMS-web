@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { AppSettings } from '../appsetting';
 
 @Injectable({
@@ -8,9 +8,20 @@ import { AppSettings } from '../appsetting';
 export class FoodstallStaffService {
 
   backend = AppSettings.BASEURL;
-  constructor(private httpClient: HttpClient) {}
+  constructor(private httpClient: HttpClient ) {}
 
-  getAllCartPending() {
-    return this.httpClient.get(`${this.backend}/cart/pending`);
+  getAllItemInProcess(foodStallId) {
+    const param = new HttpParams().set('foodStallId', foodStallId);
+    return this.httpClient.get(`${this.backend}/cart/process`, { params: param });
+  }
+
+  getCartItemDetail(cartItemId) {
+    const param = new HttpParams().set('cartItemId', cartItemId);
+    return this.httpClient.get(`${this.backend}/cart/detail`, { params: param });
+  }
+
+  updateOrderDetail(cartItemId, status) {
+    const param = new HttpParams().set('cartItemId', cartItemId).set('status', status);
+    return this.httpClient.put(`${this.backend}/cart/update`, null, { params: param });
   }
 }

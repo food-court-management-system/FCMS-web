@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpParams} from '@angular/common/http';
 import {BehaviorSubject, Observable} from 'rxjs';
 import {User} from '../dtos/user.dto';
 import {map} from 'rxjs/operators';
@@ -37,5 +37,18 @@ export class AuthenticationService {
     // remove user from local storage and set current user to null
     localStorage.removeItem('currentUser');
     this.currentUserSubject.next(null);
+  }
+
+  updateProfile(dataUpdate) {
+    return this.http.put(`${this.backend}/user/profile`, dataUpdate)
+  }
+
+  changePassword(userChange) {
+    return this.http.put(`${this.backend}/user/change-password`, userChange)
+  }
+
+  getProfile(username) {
+    const param = new HttpParams().set('username', username);
+    return this.http.get<any>(`${this.backend}/user/profile`, {params: param});
   }
 }

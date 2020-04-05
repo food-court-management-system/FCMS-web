@@ -4,6 +4,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {AuthenticationService} from '../../service/authentication.service';
 import {HttpParams} from '@angular/common/http';
 import {first} from 'rxjs/operators';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-login',
@@ -13,14 +14,13 @@ import {first} from 'rxjs/operators';
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   loading = false;
-  submitted = false;
   returnUrl: string;
-  msgError: string;
 
   constructor(private formBuilder: FormBuilder,
               private route: ActivatedRoute,
               private router: Router,
-              private authenticationService: AuthenticationService) {
+              private authenticationService: AuthenticationService,
+              private toastr: ToastrService) {
     if (this.authenticationService.currentUserValue) {
       if (this.authenticationService.currentUserValue.role === 'admin') {
         this.router.navigate(['/admin']);
@@ -48,14 +48,9 @@ export class LoginComponent implements OnInit {
   get f() { return this.loginForm.controls; }
 
   onSubmit() {
-    this.submitted = true;
-    this.loginForm.markAllAsTouched();
-
-    // stop here if form is invalid
-    if (this.loginForm.invalid) {
+    if (!this.validate()) {
       return;
     }
-
     this.loading = true;
     this.authenticationService.login(this.loginForm.value)
       .pipe(first())
@@ -64,9 +59,26 @@ export class LoginComponent implements OnInit {
           this.router.navigate([this.returnUrl]);
         },
         (error: any) => {
-          alert(error);
+          this.toastr.error(error);
           this.loading = false;
         });
+  }
+
+  validate(): boolean {
+    const data = this.loginForm.value;
+    if (data.username == "") {
+      this.toastr.error("Username must not blank!");
+      return false;
+    }
+    if (data.password == "") {
+      this.toastr.error("Password must not blank!");
+      return false;
+    }
+    if (data.password.length < 5 || data.password.length > 16) {
+      this.toastr.error("Password must have 5-16 characters");
+      return false;
+    }
+    return true;
   }
 
 }

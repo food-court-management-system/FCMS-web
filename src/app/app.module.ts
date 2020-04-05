@@ -13,6 +13,9 @@ import {JwtInterceptor} from './service/jwt.interceptor';
 import {ErrorInterceptor} from './service/error.interceptor';
 import { ZXingScannerModule } from '@zxing/ngx-scanner';
 import { ScanComponent } from './view/dummy/scan/scan.component';
+import { NgxLoadingModule } from 'ngx-loading';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   declarations: [
@@ -29,7 +32,10 @@ import { ScanComponent } from './view/dummy/scan/scan.component';
     AppRoutingModule,
     LayoutModule,
     ZXingScannerModule,
-    FormsModule
+    FormsModule,
+    NgxLoadingModule.forRoot({}),
+    BrowserAnimationsModule, // required animations module
+    ToastrModule.forRoot() // ToastrModule added
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },

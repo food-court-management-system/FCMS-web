@@ -24,7 +24,7 @@ import {FoodstallStaffGuard} from '../../service/foodstall-staff.guard';
 import { CreateFsComponent } from './admin/create-fs/create-fs.component';
 import { PersonalInformationComponent } from './personal-information/personal-information.component';
 import { ManageFsComponent } from './admin/manage-fs/manage-fs.component';
-import { ManageCartComponent } from './food-stall-staff/manage-cart/manage-cart.component';
+import { ManageOrderComponent } from './food-stall-staff/manage-order/manage-order.component';
 import { ManageFssComponent } from './food-stall-manager/manage-fss/manage-fss.component';
 import { CreateFssComponent } from './food-stall-manager/create-fss/create-fss.component';
 import { ManageFacebookCustomerComponent } from './cashier/manage-facebook-customer/manage-facebook-customer.component';
@@ -35,6 +35,9 @@ import { FoodStallInformationComponent } from './food-stall-manager/food-stall-i
 import { ManageFoodComponent } from './food-stall-manager/manage-food/manage-food.component';
 import { CreateAndEditFoodComponent } from './food-stall-manager/create-and-edit-food/create-and-edit-food.component';
 import { EditFoodStallComponent } from './food-stall-manager/edit-food-stall/edit-food-stall.component';
+import { OrderDetailComponent } from './food-stall-staff/order-detail/order-detail.component';
+import { NgxLoadingModule } from 'ngx-loading';
+import { ChangePasswordComponent } from './change-password/change-password.component';
 
 @NgModule({
   declarations: [
@@ -55,7 +58,7 @@ import { EditFoodStallComponent } from './food-stall-manager/edit-food-stall/edi
     CreateFsComponent,
     PersonalInformationComponent,
     ManageFsComponent,
-    ManageCartComponent,
+    ManageOrderComponent,
     ManageFssComponent,
     CreateFssComponent,
     ManageFacebookCustomerComponent,
@@ -65,14 +68,17 @@ import { EditFoodStallComponent } from './food-stall-manager/edit-food-stall/edi
     FoodStallInformationComponent,
     ManageFoodComponent,
     CreateAndEditFoodComponent,
-    EditFoodStallComponent
+    EditFoodStallComponent,
+    OrderDetailComponent,
+    ChangePasswordComponent
   ],
   imports: [
     LayoutRoutingModule,
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    DataTablesModule
+    DataTablesModule,
+    NgxLoadingModule.forRoot({})
   ],
   providers: [
     AdminGuard,
