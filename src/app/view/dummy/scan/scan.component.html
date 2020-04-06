@@ -1,8 +1,0 @@
-<input type="text" [(ngModel)]="wallet">
-<button (click)="startScan()">Scan</button>
-<zxing-scanner 
-            [formats]="allowedFormats" 
-            (scanSuccess)="onCodeResult($event)" 
-            [tryHarder]="true"
-            style="height: 500px; width: 500px;" *ngIf="scan">
-</zxing-scanner>

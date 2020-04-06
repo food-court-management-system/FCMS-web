@@ -13,6 +13,7 @@ import {CustomerStatusDto} from '../dtos/customer-status.dto';
 export class CashierService {
 
   backend = AppSettings.BASEURL;
+  
   constructor(private httpClient: HttpClient, private authenticationService: AuthenticationService) {}
 
   getAllFacebookCustomer() {
@@ -34,6 +35,11 @@ export class CashierService {
 
   blockOrReactivateUser(data: CustomerStatusDto) {
     return this.httpClient.put(`${this.backend}/customer/edit`, data);
+  }
+
+  scanQRCode(walletId) {
+    const params = new HttpParams().set('walletId', walletId);
+    return this.httpClient.get(`${this.backend}/customer/scan`, {params});
   }
 
 }
