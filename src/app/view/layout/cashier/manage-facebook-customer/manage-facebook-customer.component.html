@@ -1,28 +1,76 @@
-<div>
-  <h1>List of Customer (Facebook)</h1>
+<ng-template #customLoadingTemplate>
+  <div class="custom-class">
+  </div>
+</ng-template>
+
+<ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '3px',fullScreenBackdrop: true }" [template]="customLoadingTemplate"></ngx-loading>
+
+<div class="main-content" style="margin-top: 10px">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header card-header-danger">
+            <h4 class="card-title ">List of Customers (Facebook)</h4>
+          </div>
+          <div class="card-body">
+            <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table-striped row-border hover">
+              <thead>
+              <tr>
+                <th>ID</th>
+                <th>Wallet ID</th>
+                <th>Email</th>
+                <th>Action</th>
+                <th>Deposit / Withdraw</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr *ngFor="let cus of customers">
+                <td>{{ cus.id }}</td>
+                <td>{{ cus.walletId }}</td>
+                <td>{{ cus.email }}</td>
+                <td *ngIf="cus.active === true"><button class="btn btn-danger glyphicon glyphicon-ban-circle" (click)="onBlock(cus.id)"></button></td>
+                <td *ngIf="cus.active === false"><button class="btn btn-success glyphicon glyphicon-ok-sign" (click)="onReactivate(cus.id)"></button></td>
+                <td>
+                  <button [disabled]="!cus.active" class="btn btn-success fa fa-credit-card" (click)="onDeposit(cus.id)" type="button"></button>&nbsp;&nbsp;&nbsp;
+                  <button [disabled]="!cus.active" class="btn btn-danger fa fa-money" (click)="onWithdraw(cus.id)" type="button"></button>
+                </td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
 </div>
 
-<table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table-striped row-border hover">
-  <thead>
-  <tr>
-    <th>ID</th>
-    <th>Wallet ID</th>
-    <th>Email</th>
-    <th>Action</th>
-    <th>Deposit / Withdraw</th>
-  </tr>
-  </thead>
-  <tbody>
-  <tr *ngFor="let cus of customers">
-    <td>{{ cus.id }}</td>
-    <td>{{ cus.walletId }}</td>
-    <td>{{ cus.email }}</td>
-    <td *ngIf="cus.active === true"><button class="btn btn-danger glyphicon glyphicon-ban-circle" (click)="onBlock(cus.id)"></button></td>
-    <td *ngIf="cus.active === false"><button class="btn btn-success glyphicon glyphicon-ok-sign" (click)="onReactivate(cus.id)"></button></td>
-    <td>
-      <button [disabled]="!cus.active" class="btn btn-success fa fa-credit-card" (click)="onDeposit(cus.id)" type="button"></button>&nbsp;&nbsp;&nbsp;
-      <button [disabled]="!cus.active" class="btn btn-danger fa fa-money" (click)="onWithdraw(cus.id)" type="button"></button>
-    </td>
-  </tr>
-  </tbody>
-</table>
+<!--<div>-->
+  <!--<h1>List of Customer (Facebook)</h1>-->
+<!--</div>-->
+
+<!--<table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table-striped row-border hover">-->
+  <!--<thead>-->
+  <!--<tr>-->
+    <!--<th>ID</th>-->
+    <!--<th>Wallet ID</th>-->
+    <!--<th>Email</th>-->
+    <!--<th>Action</th>-->
+    <!--<th>Deposit / Withdraw</th>-->
+  <!--</tr>-->
+  <!--</thead>-->
+  <!--<tbody>-->
+  <!--<tr *ngFor="let cus of customers">-->
+    <!--<td>{{ cus.id }}</td>-->
+    <!--<td>{{ cus.walletId }}</td>-->
+    <!--<td>{{ cus.email }}</td>-->
+    <!--<td *ngIf="cus.active === true"><button class="btn btn-danger glyphicon glyphicon-ban-circle" (click)="onBlock(cus.id)"></button></td>-->
+    <!--<td *ngIf="cus.active === false"><button class="btn btn-success glyphicon glyphicon-ok-sign" (click)="onReactivate(cus.id)"></button></td>-->
+    <!--<td>-->
+      <!--<button [disabled]="!cus.active" class="btn btn-success fa fa-credit-card" (click)="onDeposit(cus.id)" type="button"></button>&nbsp;&nbsp;&nbsp;-->
+      <!--<button [disabled]="!cus.active" class="btn btn-danger fa fa-money" (click)="onWithdraw(cus.id)" type="button"></button>-->
+    <!--</td>-->
+  <!--</tr>-->
+  <!--</tbody>-->
+<!--</table>-->

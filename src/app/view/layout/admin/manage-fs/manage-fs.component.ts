@@ -18,6 +18,7 @@ export class ManageFsComponent implements OnInit, OnDestroy {
   // We use this trigger because fetching the list of persons can be quite long,
   // thus we ensure the data is fetched before rendering
   dtTrigger: Subject<any> = new Subject<any>();
+  loading = false;
 
   constructor(private adminService: AdminService) { }
 
@@ -26,7 +27,9 @@ export class ManageFsComponent implements OnInit, OnDestroy {
       pagingType: 'full_numbers',
       pageLength: 10
     };
+    this.loading = true;
     this.adminService.getAllFS().subscribe(data => {
+      this.loading = false;
       this.fss = data;
       // Calling the DT trigger to manually render the table
       this.dtTrigger.next();
@@ -45,8 +48,10 @@ export class ManageFsComponent implements OnInit, OnDestroy {
 
   onDelete(id: number) {
     if (confirm('Delete Food Stall will disable all the FS Manager and FS Staff account. Are you sure?')) {
+      this.loading = true;
       this.adminService.deleteFS(id).subscribe(data => {
         this.adminService.getAllFS().subscribe(fss => {
+          this.loading = false;
           this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
             dtInstance.destroy();
             this.fss = fss;

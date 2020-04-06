@@ -17,6 +17,7 @@ export class ManageFsmComponent implements OnInit, OnDestroy {
   // We use this trigger because fetching the list of persons can be quite long,
   // thus we ensure the data is fetched before rendering
   dtTrigger: Subject<any> = new Subject<any>();
+  loading = false;
 
   constructor(private adminService: AdminService) { }
 
@@ -25,7 +26,9 @@ export class ManageFsmComponent implements OnInit, OnDestroy {
       pagingType: 'full_numbers',
       pageLength: 10
     };
+    this.loading = true;
     this.adminService.getAllFSManager().subscribe(allFSM => {
+      this.loading = false;
       console.log(allFSM);
       this.fsms = allFSM;
       // Calling the DT trigger to manually render the table
@@ -40,12 +43,14 @@ export class ManageFsmComponent implements OnInit, OnDestroy {
 
   onDelete(id: number) {
     if (confirm('Do you want to delete this FS Manager?')) {
+      this.loading = true;
       this.adminService.deleteCashier(id).subscribe(data => {
         console.log(data);
       }, error => {
         console.log(error);
       });
       this.adminService.getAllFSManager().subscribe(fsms => {
+        this.loading = false;
         this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
           dtInstance.destroy();
           this.fsms = fsms;

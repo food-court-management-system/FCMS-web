@@ -24,8 +24,8 @@ export class FsmanagerService {
     return this.httpClient.get<FoodStallEntityDto>(`${this.backend}/food-stall/${id}/detail`);
   }
 
-  getAllFSS() {
-    return this.httpClient.get<User[]>(`${this.backend}/food-court/food-stall-staff/lists`);
+  getAllFSS(id: number) {
+    return this.httpClient.get<User[]>(`${this.backend}/food-stall/${id}/food-stall-staff/list`);
   }
 
   deleteFSS(id: number) {

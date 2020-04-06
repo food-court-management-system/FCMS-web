@@ -1,26 +1,73 @@
-<div>
-  <h1>List of Cashiers</h1>
+<ng-template #customLoadingTemplate>
+  <div class="custom-class">
+  </div>
+</ng-template>
+
+<ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '3px',fullScreenBackdrop: true }" [template]="customLoadingTemplate"></ngx-loading>
+
+<div class="main-content" style="margin-top: 10px">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header card-header-danger">
+            <h4 class="card-title ">List of Cashiers</h4>
+          </div>
+          <div class="card-body">
+            <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table-striped row-border hover">
+              <thead>
+              <tr>
+                <th>ID</th>
+                <th>Username</th>
+                <th>First name</th>
+                <th>Last name</th>
+                <th>Age</th>
+                <th></th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr *ngFor="let user of users">
+                <td>{{ user.userId }}</td>
+                <td>{{ user.username }}</td>
+                <td>{{ user.firstName }}</td>
+                <td>{{ user.lastName }}</td>
+                <td>{{ user.age }}</td>
+                <td><button class="btn btn-danger glyphicon glyphicon-trash" (click)="onDelete(user.userId)" type="button"></button></td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
 </div>
 
-<table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table-striped row-border hover">
-  <thead>
-  <tr>
-    <th>ID</th>
-    <th>Username</th>
-    <th>First name</th>
-    <th>Last name</th>
-    <th>Age</th>
-    <th></th>
-  </tr>
-  </thead>
-  <tbody>
-  <tr *ngFor="let user of users">
-    <td>{{ user.userId }}</td>
-    <td>{{ user.username }}</td>
-    <td>{{ user.firstName }}</td>
-    <td>{{ user.lastName }}</td>
-    <td>{{ user.age }}</td>
-    <td><button class="btn btn-danger glyphicon glyphicon-trash" (click)="onDelete(user.userId)" type="button"></button></td>
-  </tr>
-  </tbody>
-</table>
+
+<!--<div>-->
+  <!--<h1>List of Cashiers</h1>-->
+<!--</div>-->
+
+<!--<table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table-striped row-border hover">-->
+  <!--<thead>-->
+  <!--<tr>-->
+    <!--<th>ID</th>-->
+    <!--<th>Username</th>-->
+    <!--<th>First name</th>-->
+    <!--<th>Last name</th>-->
+    <!--<th>Age</th>-->
+    <!--<th></th>-->
+  <!--</tr>-->
+  <!--</thead>-->
+  <!--<tbody>-->
+  <!--<tr *ngFor="let user of users">-->
+    <!--<td>{{ user.userId }}</td>-->
+    <!--<td>{{ user.username }}</td>-->
+    <!--<td>{{ user.firstName }}</td>-->
+    <!--<td>{{ user.lastName }}</td>-->
+    <!--<td>{{ user.age }}</td>-->
+    <!--<td><button class="btn btn-danger glyphicon glyphicon-trash" (click)="onDelete(user.userId)" type="button"></button></td>-->
+  <!--</tr>-->
+  <!--</tbody>-->
+<!--</table>-->

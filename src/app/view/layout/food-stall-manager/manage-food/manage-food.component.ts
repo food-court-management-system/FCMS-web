@@ -22,6 +22,7 @@ export class ManageFoodComponent implements OnInit, OnDestroy {
   // thus we ensure the data is fetched before rendering
   dtTrigger: Subject<any> = new Subject<any>();
   fsId: number;
+  loading = false;
 
   constructor(private fsmanagerService: FsmanagerService,
               private authenticationService: AuthenticationService,
@@ -33,7 +34,9 @@ export class ManageFoodComponent implements OnInit, OnDestroy {
       pagingType: 'full_numbers',
       pageLength: 10
     };
+    this.loading = true;
     this.fsmanagerService.getAllFood(this.fsId).subscribe(foods => {
+      this.loading = false;
       this.foods = foods;
       // Calling the DT trigger to manually render the table
       this.dtTrigger.next();
@@ -56,8 +59,10 @@ export class ManageFoodComponent implements OnInit, OnDestroy {
 
   onDelete(id: number) {
     if (confirm('Do you want to delete this Food?')) {
+      this.loading = true;
       this.fsmanagerService.deleteFood(this.fsId, id).subscribe(data => {
         this.fsmanagerService.getAllFood(this.fsId).subscribe(foods => {
+          this.loading = false;
           this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
             dtInstance.destroy();
             this.foods = foods;

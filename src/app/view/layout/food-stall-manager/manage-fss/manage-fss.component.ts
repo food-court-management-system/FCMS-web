@@ -3,6 +3,7 @@ import {FsmanagerService} from '../../../../service/fsmanager.service';
 import {Subject} from 'rxjs';
 import {User} from '../../../../dtos/user.dto';
 import {DataTableDirective} from 'angular-datatables';
+import {AuthenticationService} from '../../../../service/authentication.service';
 
 @Component({
   selector: 'app-manage-fss',
@@ -18,15 +19,19 @@ export class ManageFssComponent implements OnInit, OnDestroy {
   // We use this trigger because fetching the list of persons can be quite long,
   // thus we ensure the data is fetched before rendering
   dtTrigger: Subject<any> = new Subject<any>();
+  loading = false;
 
-  constructor(private fsmanagerService: FsmanagerService) { }
+  constructor(private fsmanagerService: FsmanagerService,
+              private authenticationService: AuthenticationService) { }
 
   ngOnInit(): void {
     this.dtOptions = {
       pagingType: 'full_numbers',
       pageLength: 10
     };
-    this.fsmanagerService.getAllFSS().subscribe(users => {
+    this.loading = true;
+    this.fsmanagerService.getAllFSS(this.authenticationService.currentUserValue.foodStallId).subscribe(users => {
+      this.loading = false;
       this.users = users;
       // Calling the DT trigger to manually render the table
       this.dtTrigger.next();
@@ -45,8 +50,10 @@ export class ManageFssComponent implements OnInit, OnDestroy {
 
   onDelete(id: number) {
     if (confirm('Do you want to delete this staff?')) {
+      this.loading = true;
       this.fsmanagerService.deleteFSS(id).subscribe(data => {
-        this.fsmanagerService.getAllFSS().subscribe(users => {
+        this.fsmanagerService.getAllFSS(this.authenticationService.currentUserValue.foodStallId).subscribe(users => {
+          this.loading = false;
           this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
             dtInstance.destroy();
             this.users = users;

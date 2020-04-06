@@ -1,28 +1,77 @@
-<div>
-  <h1>List of FS Managers</h1>
+<ng-template #customLoadingTemplate>
+  <div class="custom-class">
+  </div>
+</ng-template>
+
+<ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '3px',fullScreenBackdrop: true }" [template]="customLoadingTemplate"></ngx-loading>
+
+<div class="main-content" style="margin-top: 10px">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header card-header-danger">
+            <h4 class="card-title ">List of FS Managers</h4>
+          </div>
+          <div class="card-body">
+            <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table-striped row-border hover">
+              <thead>
+              <tr>
+                <th>ID</th>
+                <th>Username</th>
+                <th>First name</th>
+                <th>Last name</th>
+                <th>Age</th>
+                <th>Food Stall</th>
+                <th></th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr *ngFor="let fsm of fsms">
+                <td>{{ fsm.id }}</td>
+                <td>{{ fsm.username }}</td>
+                <td>{{ fsm.firstname }}</td>
+                <td>{{ fsm.lastname }}</td>
+                <td>{{ fsm.age }}</td>
+                <td>{{ fsm.fsid }} - {{ fsm.fsname }}</td>
+                <td><button class="btn btn-danger glyphicon glyphicon-trash" (click)="onDelete(fsm.id)" type="button"></button></td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
 </div>
 
-<table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table-striped row-border hover">
-  <thead>
-  <tr>
-    <th>ID</th>
-    <th>Username</th>
-    <th>First name</th>
-    <th>Last name</th>
-    <th>Age</th>
-    <th>Food Stall</th>
-    <th></th>
-  </tr>
-  </thead>
-  <tbody>
-  <tr *ngFor="let fsm of fsms">
-    <td>{{ fsm.id }}</td>
-    <td>{{ fsm.username }}</td>
-    <td>{{ fsm.firstname }}</td>
-    <td>{{ fsm.lastname }}</td>
-    <td>{{ fsm.age }}</td>
-    <td>{{ fsm.fsid }} - {{ fsm.fsname }}</td>
-    <td><button class="btn btn-danger glyphicon glyphicon-trash" (click)="onDelete(fsm.id)" type="button"></button></td>
-  </tr>
-  </tbody>
-</table>
+
+<!--<div>-->
+  <!--<h1>List of FS Managers</h1>-->
+<!--</div>-->
+
+<!--<table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table-striped row-border hover">-->
+  <!--<thead>-->
+  <!--<tr>-->
+    <!--<th>ID</th>-->
+    <!--<th>Username</th>-->
+    <!--<th>First name</th>-->
+    <!--<th>Last name</th>-->
+    <!--<th>Age</th>-->
+    <!--<th>Food Stall</th>-->
+    <!--<th></th>-->
+  <!--</tr>-->
+  <!--</thead>-->
+  <!--<tbody>-->
+  <!--<tr *ngFor="let fsm of fsms">-->
+    <!--<td>{{ fsm.id }}</td>-->
+    <!--<td>{{ fsm.username }}</td>-->
+    <!--<td>{{ fsm.firstname }}</td>-->
+    <!--<td>{{ fsm.lastname }}</td>-->
+    <!--<td>{{ fsm.age }}</td>-->
+    <!--<td>{{ fsm.fsid }} - {{ fsm.fsname }}</td>-->
+    <!--<td><button class="btn btn-danger glyphicon glyphicon-trash" (click)="onDelete(fsm.id)" type="button"></button></td>-->
+  <!--</tr>-->
+  <!--</tbody>-->
+<!--</table>-->

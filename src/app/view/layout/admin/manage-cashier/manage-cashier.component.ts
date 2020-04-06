@@ -17,6 +17,7 @@ export class ManageCashierComponent implements OnInit, OnDestroy {
   // We use this trigger because fetching the list of persons can be quite long,
   // thus we ensure the data is fetched before rendering
   dtTrigger: Subject<any> = new Subject<any>();
+  loading = false;
 
   constructor(private adminService: AdminService) { }
 
@@ -25,7 +26,9 @@ export class ManageCashierComponent implements OnInit, OnDestroy {
       pagingType: 'full_numbers',
       pageLength: 10
     };
+    this.loading = true;
     this.adminService.getAllCashier().subscribe(users => {
+        this.loading = false;
         console.log(users);
         this.users = users;
         // Calling the DT trigger to manually render the table
@@ -45,9 +48,11 @@ export class ManageCashierComponent implements OnInit, OnDestroy {
 
   onDelete(id: number) {
     if (confirm('Do you want to delete this Cashier?')) {
+      this.loading = true;
       this.adminService.deleteCashier(id).subscribe(data => {
         console.log(data);
         this.adminService.getAllCashier().subscribe(users => {
+          this.loading = false;
           this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
             dtInstance.destroy();
             this.users = users;

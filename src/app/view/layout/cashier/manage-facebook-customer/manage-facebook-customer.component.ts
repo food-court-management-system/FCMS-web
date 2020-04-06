@@ -23,6 +23,7 @@ export class ManageFacebookCustomerComponent implements OnInit, OnDestroy {
   // thus we ensure the data is fetched before rendering
   dtTrigger: Subject<any> = new Subject<any>();
   dto: CustomerStatusDto;
+  loading = false;
 
   constructor(private cashierService: CashierService,
               private router: Router) { }
@@ -33,7 +34,9 @@ export class ManageFacebookCustomerComponent implements OnInit, OnDestroy {
       pagingType: 'full_numbers',
       pageLength: 10
     };
+    this.loading = true;
     this.cashierService.getAllFacebookCustomer().subscribe(customers => {
+      this.loading = false;
       this.customers = customers;
       // Calling the DT trigger to manually render the table
       this.dtTrigger.next();
@@ -55,10 +58,12 @@ export class ManageFacebookCustomerComponent implements OnInit, OnDestroy {
 
   onBlock(id: any) {
     if (confirm('Do you want to block this customer? He/she will not be able to login and use services.')) {
+      this.loading = true;
       this.dto.customerId = id;
       this.dto.status = false;
       this.cashierService.blockOrReactivateUser(this.dto).subscribe( data => {
         this.cashierService.getAllGoogleCustomer().subscribe(customers => {
+          this.loading = false;
           this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
             dtInstance.destroy();
             this.customers = customers;
@@ -73,10 +78,12 @@ export class ManageFacebookCustomerComponent implements OnInit, OnDestroy {
 
   onReactivate(id: any) {
     if (confirm('Do you want to reactivate this customer? He/she will be able to login and user services again.')) {
+      this.loading = true;
       this.dto.customerId = id;
       this.dto.status = true;
       this.cashierService.blockOrReactivateUser(this.dto).subscribe( data => {
         this.cashierService.getAllGoogleCustomer().subscribe(customers => {
+          this.loading = false;
           this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
             dtInstance.destroy();
             this.customers = customers;
