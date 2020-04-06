@@ -31,20 +31,22 @@ import {ManageFoodComponent} from './food-stall-manager/manage-food/manage-food.
 import {CreateAndEditFoodComponent} from './food-stall-manager/create-and-edit-food/create-and-edit-food.component';
 import { OrderDetailComponent } from './food-stall-staff/order-detail/order-detail.component';
 import { ChangePasswordComponent } from './change-password/change-password.component';
+import {EditFoodStallComponent} from './food-stall-manager/edit-food-stall/edit-food-stall.component';
+import {CanComponentDeactivate, CanDeactivateGuard} from '../../service/can-deactivate-guard.service';
+import {EditFoodCourtComponent} from './admin/edit-food-court/edit-food-court.component';
 
 const layoutRoutes: Routes = [
   { path: '',
     component: LayoutComponent,
     children: [
       { path: 'admin', component: AdminComponent, canActivate: [AdminGuard], children: [
-          { path: '' , component: AdminComponent},
+          { path: '' , redirectTo: 'cashier', pathMatch: 'full'},
           { path: 'fsm', component: ManageFsmComponent},
-          { path: 'fsm/create', component: CreateFsmComponent},
-          { path: 'fsm/delete', component: DeleteFsmComponent},
+          { path: 'fsm/create', component: CreateFsmComponent },
           { path: 'cashier', component: ManageCashierComponent},
           { path: 'cashier/create', component: CreateCashierComponent},
-          { path: 'cashier/delete', component: DeleteCashierComponent},
           { path: 'foodcourt', component: FoodCourtInfoComponent},
+          { path: 'foodcourt/edit', component: EditFoodCourtComponent},
           { path: 'foodstall', component: ManageFsComponent},
           { path: 'foodstall/create', component: CreateFsComponent}
         ] },
@@ -63,9 +65,10 @@ const layoutRoutes: Routes = [
           { path: 'food', component: ManageFoodComponent},
           { path: 'food/create', component: CreateAndEditFoodComponent},
           { path: 'food/edit/:id', component: CreateAndEditFoodComponent},
-          { path: 'fs', component: FoodStallInformationComponent}
+          { path: 'fs', component: FoodStallInformationComponent},
+          { path: 'fs/edit', component: EditFoodStallComponent}
         ] },
-        { path: 'fsstaff', component: FoodStallStaffComponent, canActivate: [FoodstallStaffGuard],children: [
+        { path: 'fsstaff', component: FoodStallStaffComponent, canActivate: [FoodstallStaffGuard], children: [
           { path: '' , component: ManageOrderComponent},
           { path: 'order', component: ManageOrderComponent},
           { path: 'detail/:id', component: OrderDetailComponent},

@@ -58,7 +58,21 @@ export class CreateFsComponent implements OnInit {
     };
   }
 
+  markControlsAsTouched() {
+    Object.keys(this.fsForm.controls).forEach(key => {
+      this.fsForm.controls[key].markAsTouched();
+    });
+  }
+
   onSubmit() {
+    this.markControlsAsTouched();
+    if (this.fsForm.invalid) {
+      return;
+    }
+    if (this.fileData === null) {
+      alert('Please choose an image');
+      return;
+    }
     const formData = new FormData();
     formData.append('foodStallName', this.fsForm.controls.foodStallName.value);
     formData.append('foodStallDescription', this.fsForm.controls.foodStallDescription.value);

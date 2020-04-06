@@ -45,7 +45,7 @@
       </div>
       <div class="col-sm-4">
         <span *ngIf="!cashierForm.get('firstName').valid && cashierForm.get('firstName').touched" class="help-block">
-          <span>First Name can't be blank</span>
+          <span>First Name is required</span>
         </span>
       </div>
     </div>
@@ -57,7 +57,7 @@
       </div>
       <div class="col-sm-4">
         <span *ngIf="!cashierForm.get('lastName').valid && cashierForm.get('lastName').touched" class="help-block">
-          <span>Last Name can't be blank</span>
+          <span>Last Name is required</span>
         </span>
       </div>
     </div>

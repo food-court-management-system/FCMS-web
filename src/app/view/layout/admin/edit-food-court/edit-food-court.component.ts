@@ -1,22 +1,19 @@
 import { Component, OnInit } from '@angular/core';
-import {AuthenticationService} from '../../../../service/authentication.service';
-import {Router} from '@angular/router';
 import {AdminService} from '../../../../service/admin.service';
 
 @Component({
-  selector: 'app-food-court-info',
-  templateUrl: './food-court-info.component.html',
-  styleUrls: ['./food-court-info.component.css']
+  selector: 'app-edit-food-court',
+  templateUrl: './edit-food-court.component.html',
+  styleUrls: ['./edit-food-court.component.css']
 })
-export class FoodCourtInfoComponent implements OnInit {
+export class EditFoodCourtComponent implements OnInit {
 
   foodCourtName: string;
   foodCourtDescription: string;
   foodCourtAddress: string;
   foodCourtImage: string;
 
-  constructor(private adminService: AdminService,
-              private router: Router) { }
+  constructor(private adminService: AdminService) { }
 
   ngOnInit() {
     // console.log(this.authenticationService.currentUser);
@@ -30,7 +27,4 @@ export class FoodCourtInfoComponent implements OnInit {
     });
   }
 
-  onEditFCInfo() {
-    this.router.navigate(['/admin/foodcourt/edit']);
-  }
 }

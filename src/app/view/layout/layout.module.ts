@@ -38,6 +38,7 @@ import { EditFoodStallComponent } from './food-stall-manager/edit-food-stall/edi
 import { OrderDetailComponent } from './food-stall-staff/order-detail/order-detail.component';
 import { NgxLoadingModule } from 'ngx-loading';
 import { ChangePasswordComponent } from './change-password/change-password.component';
+import { EditFoodCourtComponent } from './admin/edit-food-court/edit-food-court.component';
 
 @NgModule({
   declarations: [
@@ -70,7 +71,8 @@ import { ChangePasswordComponent } from './change-password/change-password.compo
     CreateAndEditFoodComponent,
     EditFoodStallComponent,
     OrderDetailComponent,
-    ChangePasswordComponent
+    ChangePasswordComponent,
+    EditFoodCourtComponent
   ],
   imports: [
     LayoutRoutingModule,

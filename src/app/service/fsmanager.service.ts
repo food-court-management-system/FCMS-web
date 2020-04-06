@@ -55,4 +55,8 @@ export class FsmanagerService {
   updateFood(fsId: number, id: number, data: FormData) {
     return this.httpClient.put(`${this.backend}/food-stall/${fsId}/food/${id}/edit`, data);
   }
+
+  updateFS(id: number, data: FormData) {
+    return this.httpClient.put(`${this.backend}/food-stall/${id}/edit`, data);
+  }
 }

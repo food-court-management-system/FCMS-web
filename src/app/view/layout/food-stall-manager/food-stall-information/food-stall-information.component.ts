@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {AdminService} from '../../../../service/admin.service';
 import {FsmanagerService} from '../../../../service/fsmanager.service';
 import {AuthenticationService} from '../../../../service/authentication.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-food-stall-information',
@@ -17,7 +18,8 @@ export class FoodStallInformationComponent implements OnInit {
   fsImage: string;
 
   constructor(private fsmService: FsmanagerService,
-              private authenticationService: AuthenticationService) { }
+              private authenticationService: AuthenticationService,
+              private router: Router) { }
 
   ngOnInit() {
     // console.log(this.authenticationService.currentUser);
@@ -32,4 +34,7 @@ export class FoodStallInformationComponent implements OnInit {
     });
   }
 
+  onEditInfo() {
+    this.router.navigate(['/fsmanager/fs/edit']);
+  }
 }

@@ -119,9 +119,13 @@ export class CreateAndEditFoodComponent implements OnInit, CanComponentDeactivat
     formData.append('foodName', this.foodForm.controls.foodName.value);
     formData.append('foodDescription', this.foodForm.controls.foodDescription.value);
     formData.append('originPrice', this.foodForm.controls.originPrice.value);
-    formData.append('retailPrice', this.foodForm.controls.retailPrice.value);
     formData.append('foodType', this.foodForm.controls.foodType.value);
     if (!this.editMode) {
+      if (this.isSale === true) {
+        formData.append('retailPrice', this.foodForm.controls.retailPrice.value);
+      } else {
+        formData.append('retailPrice', this.foodForm.controls.originPrice.value);
+      }
       this.fsmService.createNewFood(this.authenticationService.currentUserValue.foodStallId, formData).subscribe(data => {
         alert('Create new food successfully');
         this.router.navigate(['/fsmanager/food']);
@@ -129,6 +133,7 @@ export class CreateAndEditFoodComponent implements OnInit, CanComponentDeactivat
         alert(error);
       });
     } else {
+      formData.append('retailPrice', this.foodForm.controls.retailPrice.value);
       this.fsmService.updateFood(this.authenticationService.currentUserValue.foodStallId, this.foodID, formData).subscribe(data => {
         alert('Update food successfully');
         this.router.navigate(['fsmanager/food']);

@@ -50,6 +50,9 @@ export class CreateFsmComponent implements OnInit, CanComponentDeactivate {
   onSubmit() {
     this.formSubmitted = true;
     this.markControlsAsTouched();
+    if (this.fsmForm.invalid) {
+      return;
+    }
     this.adminService.createNewFsm(this.fsmForm.value).subscribe((data: any) => {
       console.log(data);
       alert('Create new FS Manager successfully');
