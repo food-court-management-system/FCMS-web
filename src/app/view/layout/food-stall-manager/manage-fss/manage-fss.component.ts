@@ -4,6 +4,7 @@ import {Subject} from 'rxjs';
 import {User} from '../../../../dtos/user.dto';
 import {DataTableDirective} from 'angular-datatables';
 import {AuthenticationService} from '../../../../service/authentication.service';
+import {ToastrService} from 'ngx-toastr';
 
 @Component({
   selector: 'app-manage-fss',
@@ -22,7 +23,8 @@ export class ManageFssComponent implements OnInit, OnDestroy {
   loading = false;
 
   constructor(private fsmanagerService: FsmanagerService,
-              private authenticationService: AuthenticationService) { }
+              private authenticationService: AuthenticationService,
+              private toastr: ToastrService) { }
 
   ngOnInit(): void {
     this.dtOptions = {
@@ -35,6 +37,8 @@ export class ManageFssComponent implements OnInit, OnDestroy {
       this.users = users;
       // Calling the DT trigger to manually render the table
       this.dtTrigger.next();
+    }, error => {
+      this.toastr.error(error);
     });
   }
 
@@ -52,6 +56,7 @@ export class ManageFssComponent implements OnInit, OnDestroy {
     if (confirm('Do you want to delete this staff?')) {
       this.loading = true;
       this.fsmanagerService.deleteFSS(id).subscribe(data => {
+        this.toastr.success('Delete FSS successfully');
         this.fsmanagerService.getAllFSS(this.authenticationService.currentUserValue.foodStallId).subscribe(users => {
           this.loading = false;
           this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
@@ -61,7 +66,8 @@ export class ManageFssComponent implements OnInit, OnDestroy {
           });
         });
       }, error => {
-        alert(error);
+        // alert(error);
+        this.toastr.error(error);
       });
     }
   }

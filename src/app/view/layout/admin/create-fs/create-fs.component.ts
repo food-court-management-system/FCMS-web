@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {AdminService} from '../../../../service/admin.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {ToastrService} from 'ngx-toastr';
 
 @Component({
   selector: 'app-create-fs',
@@ -20,7 +21,8 @@ export class CreateFsComponent implements OnInit {
 
   constructor(private route: ActivatedRoute,
               private adminService: AdminService,
-              private router: Router) { }
+              private router: Router,
+              private toastr: ToastrService) { }
 
   ngOnInit() {
     this.formSubmitted = false;
@@ -70,9 +72,11 @@ export class CreateFsComponent implements OnInit {
       return;
     }
     if (this.fileData === null) {
-      alert('Please choose an image');
+      // alert('Please choose an image. Image is required');
+      this.toastr.error('Please choose an image. Image is required');
       return;
     }
+    this.formSubmitted = true;
     const formData = new FormData();
     formData.append('foodStallName', this.fsForm.controls.foodStallName.value);
     formData.append('foodStallDescription', this.fsForm.controls.foodStallDescription.value);
@@ -81,11 +85,14 @@ export class CreateFsComponent implements OnInit {
     .subscribe((res) => {
         // console.log(res);
         // this.uploadedFilePath = res.data.filePath;
-        alert('Create new food stall successfully');
+        // alert('Create new food stall successfully');
+        this.toastr.success('Create new FS successfully');
         this.router.navigate(['/admin/foodstall']);
     },
     (error) => {
-      console.log(error);
+      // console.log(error);
+      this.formSubmitted = false;
+      this.toastr.error(error);
     });
   }
 

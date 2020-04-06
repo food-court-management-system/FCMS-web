@@ -11,40 +11,78 @@
 <!--</div>-->
 <div>
   <br>
-  <form class="form-horizontal">
+  <form class="form-horizontal" [formGroup]="fcEditForm" (ngSubmit)="onSubmit()">
     <div class="form-group">
       <div class="col-sm-1"></div>
       <label class="control-label col-sm-2" for="6">FC Name</label>
       <div class="col-sm-5">
-        <input [value]="foodCourtName" type="text" maxlength="50" class="form-control" id="6">
+        <input formControlName="foodCourtName" [value]="foodCourtName" type="text" maxlength="50" class="form-control" id="6">
+      </div>
+      <div class="col-sm-4">
+        <span *ngIf="!fcEditForm.get('foodCourtName').valid && fcEditForm.get('foodCourtName').touched" class="help-block">
+          <span>Name is required</span>
+        </span>
       </div>
     </div>
     <div class="form-group">
       <div class="col-sm-1"></div>
       <label class="control-label col-sm-2" for="1">Description</label>
       <div class="col-sm-5">
-        <textarea style="height: 200px;" [value]="foodCourtDescription" type="text" maxlength="500" class="form-control" id="1"></textarea>
+        <textarea formControlName="foodCourtDescription" style="height: 100px;" [value]="foodCourtDescription" type="text" maxlength="500" class="form-control" id="1"></textarea>
+      </div>
+      <div class="col-sm-4">
+        <span *ngIf="!fcEditForm.get('foodCourtDescription').valid && fcEditForm.get('foodCourtDescription').touched" class="help-block">
+          <span>Description is required</span>
+        </span>
       </div>
     </div>
     <div class="form-group">
       <div class="col-sm-1"></div>
       <label class="control-label col-sm-2" for="2">Address</label>
       <div class="col-sm-5">
-        <input [value]="foodCourtAddress" type="text" class="form-control" id="2">
+        <input formControlName="foodCourtAddress" [value]="foodCourtAddress" type="text" class="form-control" id="2">
+      </div>
+      <div class="col-sm-4">
+        <span *ngIf="!fcEditForm.get('foodCourtAddress').valid && fcEditForm.get('foodCourtAddress').touched" class="help-block">
+          <span>Address is required</span>
+        </span>
       </div>
     </div>
-    <div class="form-group">
+    <div class="form-group" *ngIf="!isChangeImage">
       <div class="col-sm-1"></div>
-      <label class="control-label col-sm-2">Image</label>
+      <label class="control-label col-sm-2">Old Image</label>
       <div class="col-sm-5">
         <img [src]="foodCourtImage" class="img-responsive">
       </div>
+      <div class="col-sm-1">
+        <button class="btn btn-success" type="button" (click)="onUpdateImage()">Update image</button>
+      </div>
     </div>
+
+    <div class="row" *ngIf="isChangeImage">
+      <div class="col-md-6 offset-md-3">
+        <h3>Choose New Image</h3>
+        <div class="form-group">
+          <input type="file" name="image" (change)="fileProgress($event)" />
+        </div>
+        <div *ngIf="fileUploadProgress">
+          Upload progress: {{ fileUploadProgress }}
+        </div>
+        <div class="image-preview mb-3" *ngIf="previewUrl">
+          <img [src]="previewUrl" height="300" />
+        </div>
+
+        <div class="mb-3" *ngIf="uploadedFilePath">
+          {{uploadedFilePath}}
+        </div>
+      </div>
+    </div>
+
     <div class="form-group">
       <hr>
       <div class="col-sm-6"></div>
       <div class="col-sm-2">
-        <button class="btn btn-info" style="width: 100%" type="button" (click)="onEditInfo()">Update</button>
+        <button class="btn btn-info" style="width: 100%" type="submit">Update</button>
       </div>
       <div class="col-sm-1"></div>
     </div>

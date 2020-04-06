@@ -3,6 +3,7 @@ import {AdminService} from '../../../../service/admin.service';
 import {Subject} from 'rxjs';
 import {AllFSManagerDto} from '../../../../dtos/allFSManager.dto';
 import {DataTableDirective} from 'angular-datatables';
+import {ToastrService} from 'ngx-toastr';
 
 @Component({
   selector: 'app-manage-fsm',
@@ -19,7 +20,8 @@ export class ManageFsmComponent implements OnInit, OnDestroy {
   dtTrigger: Subject<any> = new Subject<any>();
   loading = false;
 
-  constructor(private adminService: AdminService) { }
+  constructor(private adminService: AdminService,
+              private toastr: ToastrService) { }
 
   ngOnInit(): void {
     this.dtOptions = {
@@ -33,6 +35,8 @@ export class ManageFsmComponent implements OnInit, OnDestroy {
       this.fsms = allFSM;
       // Calling the DT trigger to manually render the table
       this.dtTrigger.next();
+    }, error => {
+      this.toastr.error(error);
     });
   }
 
@@ -45,17 +49,20 @@ export class ManageFsmComponent implements OnInit, OnDestroy {
     if (confirm('Do you want to delete this FS Manager?')) {
       this.loading = true;
       this.adminService.deleteCashier(id).subscribe(data => {
-        console.log(data);
-      }, error => {
-        console.log(error);
-      });
-      this.adminService.getAllFSManager().subscribe(fsms => {
-        this.loading = false;
-        this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-          dtInstance.destroy();
-          this.fsms = fsms;
-          this.dtTrigger.next();
+        this.toastr.success('Delete FSM successfully');
+        this.adminService.getAllFSManager().subscribe(fsms => {
+          this.loading = false;
+          this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+            dtInstance.destroy();
+            this.fsms = fsms;
+            this.dtTrigger.next();
+          });
+        }, error => {
+          this.toastr.error(error);
         });
+      }, error => {
+        // console.log(error);
+        this.toastr.error(error);
       });
     }
   }

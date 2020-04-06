@@ -3,6 +3,7 @@ import {Subject} from 'rxjs';
 import {AdminService} from '../../../../service/admin.service';
 import {User} from '../../../../dtos/user.dto';
 import {DataTableDirective} from 'angular-datatables';
+import {ToastrService} from 'ngx-toastr';
 
 @Component({
   selector: 'app-manage-cashier',
@@ -19,7 +20,8 @@ export class ManageCashierComponent implements OnInit, OnDestroy {
   dtTrigger: Subject<any> = new Subject<any>();
   loading = false;
 
-  constructor(private adminService: AdminService) { }
+  constructor(private adminService: AdminService,
+              private toastr: ToastrService) { }
 
   ngOnInit(): void {
     this.dtOptions = {
@@ -29,11 +31,13 @@ export class ManageCashierComponent implements OnInit, OnDestroy {
     this.loading = true;
     this.adminService.getAllCashier().subscribe(users => {
         this.loading = false;
-        console.log(users);
+        // console.log(users);
         this.users = users;
         // Calling the DT trigger to manually render the table
         this.dtTrigger.next();
-      });
+      }, error => {
+        this.toastr.error(error);
+    });
   }
 
   ngOnDestroy(): void {
@@ -50,7 +54,8 @@ export class ManageCashierComponent implements OnInit, OnDestroy {
     if (confirm('Do you want to delete this Cashier?')) {
       this.loading = true;
       this.adminService.deleteCashier(id).subscribe(data => {
-        console.log(data);
+        // console.log(data);
+        this.toastr.success('Delete Cashier successfully');
         this.adminService.getAllCashier().subscribe(users => {
           this.loading = false;
           this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
@@ -58,9 +63,12 @@ export class ManageCashierComponent implements OnInit, OnDestroy {
             this.users = users;
             this.dtTrigger.next();
           });
+        }, error => {
+          this.toastr.error(error);
         });
       }, error => {
-        console.log(error);
+        // console.log(error);
+        this.toastr.error(error);
       });
     }
   }

@@ -7,6 +7,7 @@ import {CashierService} from '../../../../service/cashier.service';
 import {CustomerDto} from '../../../../dtos/customer.dto';
 import {Router} from '@angular/router';
 import {CustomerStatusDto} from '../../../../dtos/customer-status.dto';
+import {ToastrService} from 'ngx-toastr';
 
 @Component({
   selector: 'app-manage-facebook-customer',
@@ -26,7 +27,8 @@ export class ManageFacebookCustomerComponent implements OnInit, OnDestroy {
   loading = false;
 
   constructor(private cashierService: CashierService,
-              private router: Router) { }
+              private router: Router,
+              private toastr: ToastrService) { }
 
   ngOnInit(): void {
     this.dto = new CustomerStatusDto();
@@ -40,6 +42,8 @@ export class ManageFacebookCustomerComponent implements OnInit, OnDestroy {
       this.customers = customers;
       // Calling the DT trigger to manually render the table
       this.dtTrigger.next();
+    }, error => {
+      this.toastr.error(error);
     });
   }
 
@@ -62,16 +66,20 @@ export class ManageFacebookCustomerComponent implements OnInit, OnDestroy {
       this.dto.customerId = id;
       this.dto.status = false;
       this.cashierService.blockOrReactivateUser(this.dto).subscribe( data => {
-        this.cashierService.getAllGoogleCustomer().subscribe(customers => {
+        this.toastr.success('Blocked successfully');
+        this.cashierService.getAllFacebookCustomer().subscribe(customers => {
           this.loading = false;
           this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
             dtInstance.destroy();
             this.customers = customers;
             this.dtTrigger.next();
           });
+        }, error => {
+          this.toastr.error(error);
         });
       }, error => {
-        alert(error);
+        // alert(error);
+        this.toastr.error(error);
       });
     }
   }
@@ -82,16 +90,20 @@ export class ManageFacebookCustomerComponent implements OnInit, OnDestroy {
       this.dto.customerId = id;
       this.dto.status = true;
       this.cashierService.blockOrReactivateUser(this.dto).subscribe( data => {
-        this.cashierService.getAllGoogleCustomer().subscribe(customers => {
+        this.toastr.success('Reactivated successfully');
+        this.cashierService.getAllFacebookCustomer().subscribe(customers => {
           this.loading = false;
           this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
             dtInstance.destroy();
             this.customers = customers;
             this.dtTrigger.next();
           });
+        }, error => {
+          this.toastr.error(error);
         });
       }, error => {
-        alert(error);
+        // alert(error);
+        this.toastr.error(error);
       });
     }
   }

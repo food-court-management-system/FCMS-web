@@ -5,6 +5,7 @@ import {User} from '../../../../dtos/user.dto';
 import {ActivatedRoute, Router} from '@angular/router';
 import {AdminService} from '../../../../service/admin.service';
 import {CanComponentDeactivate} from '../../../../service/can-deactivate-guard.service';
+import {ToastrService} from 'ngx-toastr';
 
 @Component({
   selector: 'app-create-cashier',
@@ -18,7 +19,8 @@ export class CreateCashierComponent implements OnInit, CanComponentDeactivate {
 
   constructor(private route: ActivatedRoute,
               private adminService: AdminService,
-              private router: Router) {}
+              private router: Router,
+              private toastr: ToastrService) {}
 
   ngOnInit() {
     this.formSubmitted = false;
@@ -43,15 +45,18 @@ export class CreateCashierComponent implements OnInit, CanComponentDeactivate {
   onSubmit() {
     this.formSubmitted = true;
     this.markControlsAsTouched();
+    if (this.cashierForm.invalid) {
+      return;
+    }
     this.adminService.createNewCashier(this.cashierForm.value).subscribe((data: any) => {
-      console.log(data);
-      alert('Add new cashier successfully');
+      this.toastr.success('Create new cashier successfully');
       this.router.navigate(['/admin/cashier']);
     }, (error) => {
-      console.log(error);
       if (error === 'This username is existed please use another username') {
         this.cashierForm.get('username').setErrors({['invalid']: true});
       }
+      this.toastr.error(error);
+      this.formSubmitted = false;
       // this.catchError.error = data;
       // this.router.navigate(['/error']);
     });

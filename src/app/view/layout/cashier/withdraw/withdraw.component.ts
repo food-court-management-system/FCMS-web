@@ -5,6 +5,7 @@ import {FoodStallDto} from '../../../../dtos/foodStall.dto';
 import {AdminService} from '../../../../service/admin.service';
 import {CanComponentDeactivate} from '../../../../service/can-deactivate-guard.service';
 import {CashierService} from '../../../../service/cashier.service';
+import {ToastrService} from 'ngx-toastr';
 
 @Component({
   selector: 'app-withdraw',
@@ -21,7 +22,8 @@ export class WithdrawComponent implements OnInit, CanComponentDeactivate {
 
   constructor(private route: ActivatedRoute,
               private cashierService: CashierService,
-              private router: Router) {}
+              private router: Router,
+              private toastr: ToastrService) {}
 
   ngOnInit() {
     this.route.params
@@ -44,7 +46,8 @@ export class WithdrawComponent implements OnInit, CanComponentDeactivate {
       this.balance = data.balances;
       this.walletId = data.id;
     }, error => {
-      alert(error);
+      // alert(error);
+      this.toastr.error(error);
     });
     this.withdrawForm = new FormGroup({
       assert: new FormControl('withdrawals'),
@@ -66,12 +69,14 @@ export class WithdrawComponent implements OnInit, CanComponentDeactivate {
     }
     this.cashierService.updateBalance(this.walletId, this.withdrawForm.get('balance').value, this.withdrawForm.get('assert').value)
       .subscribe((data: any) => {
-      console.log(data);
-      alert('Withdraw successfully');
-      this.createForm();
+        this.toastr.success('Withdraw successfully');
+      // console.log(data);
+      // alert('Withdraw successfully');
+        this.createForm();
       // this.router.navigate(['/cashier/customer']);
     }, (error) => {
-      alert(error);
+        this.toastr.error(error);
+      // alert(error);
       // this.catchError.error = data;
       // this.router.navigate(['/error']);
     });

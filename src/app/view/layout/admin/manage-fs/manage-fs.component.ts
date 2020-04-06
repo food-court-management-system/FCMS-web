@@ -4,6 +4,7 @@ import {User} from '../../../../dtos/user.dto';
 import {Subject} from 'rxjs';
 import {FoodStallDto} from '../../../../dtos/foodStall.dto';
 import {DataTableDirective} from 'angular-datatables';
+import {ToastrService} from 'ngx-toastr';
 
 @Component({
   selector: 'app-manage-fs',
@@ -20,7 +21,8 @@ export class ManageFsComponent implements OnInit, OnDestroy {
   dtTrigger: Subject<any> = new Subject<any>();
   loading = false;
 
-  constructor(private adminService: AdminService) { }
+  constructor(private adminService: AdminService,
+              private toastr: ToastrService) { }
 
   ngOnInit(): void {
     this.dtOptions = {
@@ -33,6 +35,8 @@ export class ManageFsComponent implements OnInit, OnDestroy {
       this.fss = data;
       // Calling the DT trigger to manually render the table
       this.dtTrigger.next();
+    }, error => {
+      this.toastr.error(error);
     });
   }
 
@@ -50,6 +54,7 @@ export class ManageFsComponent implements OnInit, OnDestroy {
     if (confirm('Delete Food Stall will disable all the FS Manager and FS Staff account. Are you sure?')) {
       this.loading = true;
       this.adminService.deleteFS(id).subscribe(data => {
+        this.toastr.success('Delete FS successfully');
         this.adminService.getAllFS().subscribe(fss => {
           this.loading = false;
           this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
@@ -57,9 +62,12 @@ export class ManageFsComponent implements OnInit, OnDestroy {
             this.fss = fss;
             this.dtTrigger.next();
           });
+        }, error => {
+          this.toastr.error(error);
         });
       }, error => {
-        console.log(error);
+        // console.log(error);
+        this.toastr.error(error);
       });
     }
   }

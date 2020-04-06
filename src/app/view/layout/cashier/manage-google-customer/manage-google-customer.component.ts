@@ -5,6 +5,7 @@ import {Subject} from 'rxjs';
 import {Router} from '@angular/router';
 import {CashierService} from '../../../../service/cashier.service';
 import {CustomerStatusDto} from '../../../../dtos/customer-status.dto';
+import {ToastrService} from 'ngx-toastr';
 
 @Component({
   selector: 'app-manage-google-customer',
@@ -24,7 +25,8 @@ export class ManageGoogleCustomerComponent implements OnInit, OnDestroy {
   loading = false;
 
   constructor(private cashierService: CashierService,
-              private router: Router) { }
+              private router: Router,
+              private toastr: ToastrService) { }
 
   ngOnInit(): void {
     this.dto = new CustomerStatusDto();
@@ -38,6 +40,8 @@ export class ManageGoogleCustomerComponent implements OnInit, OnDestroy {
       this.customers = customers;
       // Calling the DT trigger to manually render the table
       this.dtTrigger.next();
+    }, error => {
+      this.toastr.error(error);
     });
   }
 
@@ -60,6 +64,7 @@ export class ManageGoogleCustomerComponent implements OnInit, OnDestroy {
       this.dto.customerId = id;
       this.dto.status = false;
       this.cashierService.blockOrReactivateUser(this.dto).subscribe( data => {
+        this.toastr.success('Blocked successfully');
         this.cashierService.getAllGoogleCustomer().subscribe(customers => {
           this.loading = false;
           this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
@@ -67,9 +72,12 @@ export class ManageGoogleCustomerComponent implements OnInit, OnDestroy {
             this.customers = customers;
             this.dtTrigger.next();
           });
+        }, error => {
+          this.toastr.error(error);
         });
       }, error => {
-        alert(error);
+        // alert(error);
+        this.toastr.error(error);
       });
     }
   }
@@ -80,6 +88,7 @@ export class ManageGoogleCustomerComponent implements OnInit, OnDestroy {
       this.dto.customerId = id;
       this.dto.status = true;
       this.cashierService.blockOrReactivateUser(this.dto).subscribe( data => {
+        this.toastr.success('Reactivated successfully');
         this.cashierService.getAllGoogleCustomer().subscribe(customers => {
           this.loading = false;
           this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
@@ -87,9 +96,12 @@ export class ManageGoogleCustomerComponent implements OnInit, OnDestroy {
             this.customers = customers;
             this.dtTrigger.next();
           });
+        }, error => {
+          this.toastr.error(error);
         });
       }, error => {
-        alert(error);
+        // alert(error);
+        this.toastr.error(error);
       });
     }
   }

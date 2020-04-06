@@ -6,6 +6,7 @@ import {FsmanagerService} from '../../../../service/fsmanager.service';
 import {FoodEntityDto} from '../../../../dtos/food-entity.dto';
 import {AuthenticationService} from '../../../../service/authentication.service';
 import {Router} from '@angular/router';
+import {ToastrService} from 'ngx-toastr';
 
 @Component({
   selector: 'app-manage-food',
@@ -26,7 +27,8 @@ export class ManageFoodComponent implements OnInit, OnDestroy {
 
   constructor(private fsmanagerService: FsmanagerService,
               private authenticationService: AuthenticationService,
-              private router: Router) { }
+              private router: Router,
+              private toastr: ToastrService) { }
 
   ngOnInit(): void {
     this.fsId = this.authenticationService.currentUserValue.foodStallId;
@@ -40,6 +42,8 @@ export class ManageFoodComponent implements OnInit, OnDestroy {
       this.foods = foods;
       // Calling the DT trigger to manually render the table
       this.dtTrigger.next();
+    }, error => {
+      this.toastr.error(error);
     });
   }
 
@@ -61,6 +65,7 @@ export class ManageFoodComponent implements OnInit, OnDestroy {
     if (confirm('Do you want to delete this Food?')) {
       this.loading = true;
       this.fsmanagerService.deleteFood(this.fsId, id).subscribe(data => {
+        this.toastr.success('Delete food successfully');
         this.fsmanagerService.getAllFood(this.fsId).subscribe(foods => {
           this.loading = false;
           this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
@@ -70,7 +75,8 @@ export class ManageFoodComponent implements OnInit, OnDestroy {
           });
         });
       }, error => {
-        alert(error);
+        // alert(error);
+        this.toastr.error(error);
       });
     }
   }

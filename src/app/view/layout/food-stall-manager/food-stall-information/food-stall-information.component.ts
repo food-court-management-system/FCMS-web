@@ -3,6 +3,7 @@ import {AdminService} from '../../../../service/admin.service';
 import {FsmanagerService} from '../../../../service/fsmanager.service';
 import {AuthenticationService} from '../../../../service/authentication.service';
 import {Router} from '@angular/router';
+import {ToastrService} from 'ngx-toastr';
 
 @Component({
   selector: 'app-food-stall-information',
@@ -19,7 +20,8 @@ export class FoodStallInformationComponent implements OnInit {
 
   constructor(private fsmService: FsmanagerService,
               private authenticationService: AuthenticationService,
-              private router: Router) { }
+              private router: Router,
+              private toastr: ToastrService) { }
 
   ngOnInit() {
     // console.log(this.authenticationService.currentUser);
@@ -30,7 +32,8 @@ export class FoodStallInformationComponent implements OnInit {
       this.fsRating = data.foodStallRating;
       this.fsImage = data.foodStallImage;
     }, error => {
-      alert(error);
+      // alert(error);
+      this.toastr.error(error);
     });
   }
 

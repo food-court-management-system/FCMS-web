@@ -4,6 +4,7 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {CanComponentDeactivate} from '../../../../service/can-deactivate-guard.service';
 import {FsmanagerService} from '../../../../service/fsmanager.service';
 import {AuthenticationService} from '../../../../service/authentication.service';
+import {ToastrService} from 'ngx-toastr';
 
 @Component({
   selector: 'app-create-fss',
@@ -18,7 +19,8 @@ export class CreateFssComponent implements OnInit, CanComponentDeactivate {
   constructor(private route: ActivatedRoute,
               private authenticationService: AuthenticationService,
               private fsmService: FsmanagerService,
-              private router: Router) {}
+              private router: Router,
+              private toastr: ToastrService) {}
 
   ngOnInit() {
     this.formSubmitted = false;
@@ -44,15 +46,22 @@ export class CreateFssComponent implements OnInit, CanComponentDeactivate {
   onSubmit() {
     this.formSubmitted = true;
     this.markControlsAsTouched();
+    if (this.fssForm.invalid) {
+      this.formSubmitted = false;
+      return;
+    }
     this.fsmService.createFSS(this.fssForm.value).subscribe((data: any) => {
-      console.log(data);
-      alert('Add new FS staff successfully');
+      // console.log(data);
+      // alert('Add new FS staff successfully');
+      this.toastr.success('Add new FSS successfully');
       this.router.navigate(['/fsmanager/fss']);
     }, (error) => {
-      console.log(error);
+      // console.log(error);
       if (error === 'This username is existed please use another username') {
         this.fssForm.get('username').setErrors({['invalid']: true});
       }
+      this.formSubmitted = false;
+      this.toastr.error(error);
       // this.catchError.error = data;
       // this.router.navigate(['/error']);
     });

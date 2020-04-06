@@ -8,6 +8,7 @@ import {FoodEntityDto} from '../../../../dtos/food-entity.dto';
 import {CanComponentDeactivate} from '../../../../service/can-deactivate-guard.service';
 import {Subscription} from 'rxjs';
 import {FoodTypeEntityDto} from '../../../../dtos/food-type-entity.dto';
+import {ToastrService} from 'ngx-toastr';
 
 @Component({
   selector: 'app-create-food',
@@ -32,7 +33,8 @@ export class CreateAndEditFoodComponent implements OnInit, CanComponentDeactivat
   constructor(private route: ActivatedRoute,
               private authenticationService: AuthenticationService,
               private fsmService: FsmanagerService,
-              private router: Router) { }
+              private router: Router,
+              private toastr: ToastrService) { }
 
   ngOnInit() {
     this.formSubmitted = false;
@@ -62,7 +64,8 @@ export class CreateAndEditFoodComponent implements OnInit, CanComponentDeactivat
         foodDescription: new FormControl(this.foodDTO.foodDescription, [Validators.required, Validators.maxLength(1000)])
       });
     }, error => {
-      alert(error);
+      // alert(error);
+      this.toastr.error(error);
     });
   }
 
@@ -74,6 +77,8 @@ export class CreateAndEditFoodComponent implements OnInit, CanComponentDeactivat
     this.fsmService.getAllFoodTypes().subscribe(data => {
       this.types = data;
       this.foodForm.get('foodType').setValue(this.types[0].typeName);
+    }, error => {
+      this.toastr.error(error);
     });
     this.foodForm = new FormGroup({
       foodName: new FormControl(null, [Validators.required, Validators.maxLength(50)]),
@@ -112,6 +117,7 @@ export class CreateAndEditFoodComponent implements OnInit, CanComponentDeactivat
       this.foodForm.get('retailPrice').setErrors({['invalid']: true});
       return;
     }
+    this.formSubmitted = true;
     const formData = new FormData();
     if (this.fileData !== null) {
       formData.append('image', this.fileData);
@@ -127,16 +133,23 @@ export class CreateAndEditFoodComponent implements OnInit, CanComponentDeactivat
         formData.append('retailPrice', this.foodForm.controls.originPrice.value);
       }
       this.fsmService.createNewFood(this.authenticationService.currentUserValue.foodStallId, formData).subscribe(data => {
-        alert('Create new food successfully');
+        // alert('Create new food successfully');
+        this.toastr.success('Create new food successfully');
         this.router.navigate(['/fsmanager/food']);
       }, error => {
-        alert(error);
+        // alert(error);
+        this.formSubmitted = false;
+        this.toastr.error(error);
       });
     } else {
       formData.append('retailPrice', this.foodForm.controls.retailPrice.value);
       this.fsmService.updateFood(this.authenticationService.currentUserValue.foodStallId, this.foodID, formData).subscribe(data => {
-        alert('Update food successfully');
+        // alert('Update food successfully');
+        this.toastr.success('Update food successfully');
         this.router.navigate(['fsmanager/food']);
+      }, error => {
+        this.formSubmitted = false;
+        this.toastr.error(error);
       });
     }
   }

@@ -15,6 +15,10 @@ export class AdminService {
   backend = AppSettings.BASEURL;
   constructor(private httpClient: HttpClient, private authenticationService: AuthenticationService) {}
 
+  updateFC(data: FormData) {
+    return this.httpClient.put(`${this.backend}/food-court/information`, data);
+  }
+
   getInfo() {
     return this.httpClient.get<FoodCourtDto>(`${this.backend}/food-court/about`);
   }

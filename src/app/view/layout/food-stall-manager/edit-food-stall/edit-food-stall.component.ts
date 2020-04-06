@@ -6,6 +6,7 @@ import {FsmanagerService} from '../../../../service/fsmanager.service';
 import {FoodEntityDto} from '../../../../dtos/food-entity.dto';
 import {FoodTypeEntityDto} from '../../../../dtos/food-type-entity.dto';
 import {CanComponentDeactivate} from '../../../../service/can-deactivate-guard.service';
+import {ToastrService} from 'ngx-toastr';
 
 @Component({
   selector: 'app-edit-food-stall',
@@ -32,7 +33,8 @@ export class EditFoodStallComponent implements OnInit, CanComponentDeactivate {
   constructor(private route: ActivatedRoute,
               private authenticationService: AuthenticationService,
               private fsmService: FsmanagerService,
-              private router: Router) { }
+              private router: Router,
+              private toastr: ToastrService) { }
 
   ngOnInit() {
     this.formSubmitted = false;
@@ -56,7 +58,8 @@ export class EditFoodStallComponent implements OnInit, CanComponentDeactivate {
         fsDescription: new FormControl(data.foodStallDescription, [Validators.required, Validators.maxLength(1000)])
       });
     }, error => {
-      alert(error);
+      // alert(error);
+      this.toastr.error(error);
     });
     this.fsEditForm = new FormGroup({
       fsName: new FormControl(null, [Validators.required, Validators.maxLength(50)]),
@@ -84,10 +87,11 @@ export class EditFoodStallComponent implements OnInit, CanComponentDeactivate {
   }
 
   onSubmit() {
+    this.markControlsAsTouched()
     if (this.fsEditForm.invalid) {
-      this.markControlsAsTouched();
       return;
     }
+    this.formSubmitted = true;
     const formData = new FormData();
     if (this.fileData !== null) {
       formData.append('image', this.fileData);
@@ -95,10 +99,13 @@ export class EditFoodStallComponent implements OnInit, CanComponentDeactivate {
     formData.append('foodStallName', this.fsEditForm.controls.fsName.value);
     formData.append('foodStallDescription', this.fsEditForm.controls.fsDescription.value);
     this.fsmService.updateFS(this.authenticationService.currentUserValue.foodStallId, formData).subscribe(data => {
-      alert('Update FS information successfully');
+      // alert('Update FS information successfully');
+      this.toastr.success('Update FS information successfully');
       this.router.navigate(['/fsmanager/fs']);
     }, error => {
-      alert(error);
+      this.formSubmitted = false;
+      this.toastr.error(error);
+      // alert(error);
     });
   }
   //

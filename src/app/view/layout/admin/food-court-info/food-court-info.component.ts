@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {AuthenticationService} from '../../../../service/authentication.service';
 import {Router} from '@angular/router';
 import {AdminService} from '../../../../service/admin.service';
+import {ToastrService} from 'ngx-toastr';
 
 @Component({
   selector: 'app-food-court-info',
@@ -16,7 +17,8 @@ export class FoodCourtInfoComponent implements OnInit {
   foodCourtImage: string;
 
   constructor(private adminService: AdminService,
-              private router: Router) { }
+              private router: Router,
+              private toastr: ToastrService) { }
 
   ngOnInit() {
     // console.log(this.authenticationService.currentUser);
@@ -26,7 +28,8 @@ export class FoodCourtInfoComponent implements OnInit {
       this.foodCourtDescription = data.foodCourtDescription;
       this.foodCourtImage = data.foodCourtImage;
     }, error => {
-      alert(error);
+      // alert(error);
+      this.toastr.error(error);
     });
   }
 

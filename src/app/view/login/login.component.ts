@@ -66,16 +66,16 @@ export class LoginComponent implements OnInit {
 
   validate(): boolean {
     const data = this.loginForm.value;
-    if (data.username == "") {
-      this.toastr.error("Username must not blank!");
+    if (data.username === '') {
+      this.toastr.error('Username must not blank!');
       return false;
     }
-    if (data.password == "") {
-      this.toastr.error("Password must not blank!");
+    if (data.password === '') {
+      this.toastr.error('Password must not blank!');
       return false;
     }
     if (data.password.length < 5 || data.password.length > 16) {
-      this.toastr.error("Password must have 5-16 characters");
+      this.toastr.error('Password must have 5-16 characters');
       return false;
     }
     return true;
