@@ -11,8 +11,6 @@ import {ReactiveFormsModule, FormsModule} from '@angular/forms';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {JwtInterceptor} from './service/jwt.interceptor';
 import {ErrorInterceptor} from './service/error.interceptor';
-import { ZXingScannerModule } from '@zxing/ngx-scanner';
-import { ScanComponent } from './view/dummy/scan/scan.component';
 import { NgxLoadingModule } from 'ngx-loading';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
@@ -22,8 +20,7 @@ import { ToastrModule } from 'ngx-toastr';
     AppComponent,
     PageNotFoundComponent,
     ErrorPageComponent,
-    LoginComponent,
-    ScanComponent
+    LoginComponent
   ],
   imports: [
     HttpClientModule,
@@ -31,7 +28,6 @@ import { ToastrModule } from 'ngx-toastr';
     BrowserModule,
     AppRoutingModule,
     LayoutModule,
-    ZXingScannerModule,
     FormsModule,
     NgxLoadingModule.forRoot({}),
     BrowserAnimationsModule, // required animations module

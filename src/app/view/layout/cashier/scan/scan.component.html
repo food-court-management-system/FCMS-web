@@ -1,0 +1,98 @@
+<ng-template #customLoadingTemplate>
+    <div class="custom-class">
+    </div>
+</ng-template>
+
+<ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '3px',fullScreenBackdrop: true }"
+    [template]="customLoadingTemplate"></ngx-loading>
+
+<div class="main-content" style="margin-top: 10px">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-danger">
+                        <h4 class="card-title ">Scan QR Code</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="form-content row">
+                            <div class="form-group col-sm-12 col-md-4 col-lg-4">
+                                <input type="text" class="form-control input-underline input-lg" name="username"
+                                    [(ngModel)]="walletId" (keydown.enter)="onSearch()">
+                            </div>
+                            <div>
+                                <button class="btn btn-lg btn-info" (click)="showDialog()">
+                                    <i class="fa fa-qrcode"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="form-content row" *ngIf="info">
+                            <div class="form-group col-sm-12 col-md-3 col-lg-3"></div>
+                          <div class="form-group col-sm-12 col-md-6 col-lg-6">
+                            <label>UserId:</label>
+                            <input type="text" class="form-control input-underline input-lg" disabled [(ngModel)]="info.userId">
+                          </div>
+                          <div class="form-group col-sm-12 col-md-3 col-lg-3"></div>
+                          <div class="form-group col-sm-12 col-md-3 col-lg-3"></div>
+                          <div class="form-group col-sm-12 col-md-6 col-lg-6">
+                            <label>Email:</label>
+                            <input type="text" class="form-control input-underline input-lg" disabled [(ngModel)]="info.email">
+                          </div>
+                          <div class="form-group col-sm-12 col-md-3 col-lg-3"></div>
+                          <div class="form-group col-sm-12 col-md-3 col-lg-3"></div>
+                          <div class="form-group col-sm-12 col-md-6 col-lg-6">
+                            <label>Provider:</label>
+                            <input type="text" class="form-control input-underline input-lg" disabled [(ngModel)]="info.provider">
+                          </div>
+                          <div class="form-group col-sm-12 col-md-3 col-lg-3"></div>
+                          <div class="form-group col-sm-12 col-md-3 col-lg-3"></div>
+                          <div class="form-group col-sm-12 col-md-6 col-lg-6">
+                            <label>WalletID:</label>
+                            <input type="text" class="form-control input-underline input-lg" disabled [(ngModel)]="info.walletId">
+                          </div>
+                          <div class="form-group col-sm-12 col-md-3 col-lg-3"></div>
+                          <div class="form-group col-sm-12 col-md-3 col-lg-3"></div>
+                          <div class="form-group col-sm-12 col-md-6 col-lg-6">
+                            <label>Balance:</label>
+                            <input type="text" class="form-control input-underline input-lg" disabled [(ngModel)]="info.balance">
+                          </div>
+                          <div class="form-group col-sm-12 col-md-3 col-lg-3"></div>
+
+                          <div class="form-group col-sm-12 col-md-5 col-lg-5"></div>
+                          <div class="form-group col-sm-12 col-md-6 col-lg-6">
+                            <button class="btn btn-success fa fa-credit-card" (click)="onDeposit()" type="button">&nbsp;&nbsp;Deposit</button>&nbsp;&nbsp;&nbsp;
+                            <button [disabled]="info.balance == 0" class="btn btn-danger fa fa-money" (click)="onWithdraw()" type="button">&nbsp;&nbsp;Withdraw</button>
+                          </div>
+                          <div class="form-group col-sm-12 col-md-1 col-lg-1"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<ng-container #vc></ng-container>
+<ng-template #modal_1>
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="modal-basic-title">Scan QR Code</h4>
+                </div>
+                <div class="modal-body">
+                    <zxing-scanner [formats]="allowedFormats" (scanSuccess)="onCodeResult($event)" [tryHarder]="true"
+                        *ngIf="scan">
+                    </zxing-scanner>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal" (click)="closeDialog()">Close
+                    </button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal -->
+    </div>
+</ng-template>

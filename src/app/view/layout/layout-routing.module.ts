@@ -34,6 +34,7 @@ import { ChangePasswordComponent } from './change-password/change-password.compo
 import {EditFoodStallComponent} from './food-stall-manager/edit-food-stall/edit-food-stall.component';
 import {CanComponentDeactivate, CanDeactivateGuard} from '../../service/can-deactivate-guard.service';
 import {EditFoodCourtComponent} from './admin/edit-food-court/edit-food-court.component';
+import { ScanComponent } from './cashier/scan/scan.component';
 
 const layoutRoutes: Routes = [
   { path: '',
@@ -56,7 +57,8 @@ const layoutRoutes: Routes = [
           { path: 'customer/facebook', component: ManageFacebookCustomerComponent},
           { path: 'customer/google', component: ManageGoogleCustomerComponent},
           { path: 'customer/:id/withdraw', component: WithdrawComponent},
-          { path: 'customer/:id/deposit', component: DepositComponent}
+          { path: 'customer/:id/deposit', component: DepositComponent},
+          { path: 'customer/scan', component: ScanComponent}
         ] },
       { path: 'fsmanager', component: FoodStallManagerComponent, canActivate: [FoodstallManagerGuard], children: [
           { path: '', component: FoodStallManagerComponent},

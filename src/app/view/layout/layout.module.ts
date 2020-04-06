@@ -39,6 +39,8 @@ import { OrderDetailComponent } from './food-stall-staff/order-detail/order-deta
 import { NgxLoadingModule } from 'ngx-loading';
 import { ChangePasswordComponent } from './change-password/change-password.component';
 import { EditFoodCourtComponent } from './admin/edit-food-court/edit-food-court.component';
+import { ScanComponent } from './cashier/scan/scan.component';
+import { ZXingScannerModule } from '@zxing/ngx-scanner';
 
 @NgModule({
   declarations: [
@@ -72,7 +74,8 @@ import { EditFoodCourtComponent } from './admin/edit-food-court/edit-food-court.
     EditFoodStallComponent,
     OrderDetailComponent,
     ChangePasswordComponent,
-    EditFoodCourtComponent
+    EditFoodCourtComponent,
+    ScanComponent
   ],
   imports: [
     LayoutRoutingModule,
@@ -80,7 +83,8 @@ import { EditFoodCourtComponent } from './admin/edit-food-court/edit-food-court.
     FormsModule,
     ReactiveFormsModule,
     DataTablesModule,
-    NgxLoadingModule.forRoot({})
+    NgxLoadingModule.forRoot({}),
+    ZXingScannerModule
   ],
   providers: [
     AdminGuard,
