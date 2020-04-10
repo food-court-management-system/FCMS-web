@@ -19,6 +19,7 @@ export class WithdrawComponent implements OnInit, CanComponentDeactivate {
   userId: number;
   balance: number;
   walletId: number;
+  loading = false;
 
   constructor(private route: ActivatedRoute,
               private cashierService: CashierService,
@@ -42,12 +43,15 @@ export class WithdrawComponent implements OnInit, CanComponentDeactivate {
   }
 
   createForm() {
+    this.loading = true;
     this.cashierService.getWalletDetail(this.userId).subscribe(data => {
       this.balance = data.balances;
       this.walletId = data.id;
+      this.loading = false;
     }, error => {
       // alert(error);
       this.toastr.error(error);
+      this.loading = false;
     });
     this.withdrawForm = new FormGroup({
       assert: new FormControl('withdrawals'),
@@ -67,15 +71,18 @@ export class WithdrawComponent implements OnInit, CanComponentDeactivate {
       this.formSubmitted = false;
       return;
     }
+    this.loading = true;
     this.cashierService.updateBalance(this.walletId, this.withdrawForm.get('balance').value, this.withdrawForm.get('assert').value)
       .subscribe((data: any) => {
         this.toastr.success('Withdraw successfully');
       // console.log(data);
       // alert('Withdraw successfully');
+        this.loading = false;
         this.createForm();
       // this.router.navigate(['/cashier/customer']);
     }, (error) => {
         this.toastr.error(error);
+        this.loading = false;
       // alert(error);
       // this.catchError.error = data;
       // this.router.navigate(['/error']);

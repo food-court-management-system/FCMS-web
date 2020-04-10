@@ -18,6 +18,7 @@ export class CreateFsComponent implements OnInit {
 
   formSubmitted = false;
   fsForm: FormGroup;
+  loading = false;
 
   constructor(private route: ActivatedRoute,
               private adminService: AdminService,
@@ -77,12 +78,14 @@ export class CreateFsComponent implements OnInit {
       return;
     }
     this.formSubmitted = true;
+    this.loading = true;
     const formData = new FormData();
     formData.append('foodStallName', this.fsForm.controls.foodStallName.value);
     formData.append('foodStallDescription', this.fsForm.controls.foodStallDescription.value);
     formData.append('image', this.fileData);
     this.adminService.createNewFoodStall(formData)
     .subscribe((res) => {
+        this.loading = false;
         // console.log(res);
         // this.uploadedFilePath = res.data.filePath;
         // alert('Create new food stall successfully');

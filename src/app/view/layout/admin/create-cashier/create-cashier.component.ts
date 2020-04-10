@@ -16,6 +16,7 @@ export class CreateCashierComponent implements OnInit, CanComponentDeactivate {
 
   formSubmitted = false;
   cashierForm: FormGroup;
+  loading = false;
 
   constructor(private route: ActivatedRoute,
               private adminService: AdminService,
@@ -46,15 +47,19 @@ export class CreateCashierComponent implements OnInit, CanComponentDeactivate {
     this.formSubmitted = true;
     this.markControlsAsTouched();
     if (this.cashierForm.invalid) {
+      this.formSubmitted = false;
       return;
     }
+    this.loading = true;
     this.adminService.createNewCashier(this.cashierForm.value).subscribe((data: any) => {
+      this.loading = false;
       this.toastr.success('Create new cashier successfully');
       this.router.navigate(['/admin/cashier']);
     }, (error) => {
       if (error === 'This username is existed please use another username') {
         this.cashierForm.get('username').setErrors({['invalid']: true});
       }
+      this.loading = false;
       this.toastr.error(error);
       this.formSubmitted = false;
       // this.catchError.error = data;

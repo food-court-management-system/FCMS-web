@@ -1,67 +1,149 @@
-<div class="row" style="padding-left: 40px;">
-  <br>
-  <h4>Withdraw</h4>
-  <hr>
+<ng-template #customLoadingTemplate>
+  <div class="custom-class">
+  </div>
+</ng-template>
+
+<ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '3px',fullScreenBackdrop: true }" [template]="customLoadingTemplate"></ngx-loading>
+
+<div class="main-content" style="margin-top: 10px">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header card-header-danger">
+            <h4 class="card-title ">Withdraw</h4>
+          </div>
+          <div class="card-body">
+            <div>
+              <br>
+              <form class="form-horizontal" [formGroup]="withdrawForm" (ngSubmit)="onSubmit()">
+                <div class="form-group">
+                  <div class="col-sm-1"></div>
+                  <label class="control-label col-sm-2" for="1">User ID</label>
+                  <div class="col-sm-5">
+                    <input readonly [value]="userId" type="text" class="form-control" id="1">
+                  </div>
+                  <div class="col-sm-4">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <div class="col-sm-1"></div>
+                  <label class="control-label col-sm-2" for="5">Wallet ID</label>
+                  <div class="col-sm-5">
+                    <input readonly [value]="walletId" type="text" class="form-control" id="5">
+                  </div>
+                  <div class="col-sm-4">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <div class="col-sm-1"></div>
+                  <label class="control-label col-sm-2" for="2">Balance</label>
+                  <div class="col-sm-5">
+                    <input readonly [value]="balance" type="text" class="form-control" id="2">
+                  </div>
+                  <div class="col-sm-4">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <div class="col-sm-1"></div>
+                  <label class="control-label col-sm-2" for="4">Input amount (Withdraw) (VND)<span>*</span></label>
+                  <div class="div col-sm-5">
+                    <input min="0" formControlName="balance" type="number" class="form-control" id="4">
+                  </div>
+                  <div class="col-sm-4">
+        <span *ngIf="!withdrawForm.get('balance').valid && withdrawForm.get('balance').touched" class="help-block">
+          <span>Amount withdrawn must lower than your current balance and greater than 1000 vnd</span>
+        </span>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <hr>
+                  <div class="col-sm-6"></div>
+                  <div class="col-sm-2">
+                    <button class="btn btn-default" style="width: 100%" type="button" (click)="onClear()">Clear</button>
+                  </div>
+                  <div class="col-sm-1"></div>
+                  <div class="col-md-2">
+                    <button class="btn btn-danger fa fa-money" style="width: 100%" type="submit">  Withdraw</button>
+                  </div>
+                </div>
+              </form>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
 </div>
+
+
+<!--<div class="row" style="padding-left: 40px;">-->
+  <!--<br>-->
+  <!--<h4>Withdraw</h4>-->
+  <!--<hr>-->
+<!--</div>-->
 <!--<div class="row" *ngIf="showError">-->
 <!--<div class="alert alert-danger alert-dismissible">-->
 <!--<a class="close" data-dismiss="alert" aria-label="close">&times;</a>-->
 <!--All fields are required-->
 <!--</div>-->
 <!--</div>-->
-<div>
-  <br>
-  <form class="form-horizontal" [formGroup]="withdrawForm" (ngSubmit)="onSubmit()">
-    <div class="form-group">
-      <div class="col-sm-1"></div>
-      <label class="control-label col-sm-2" for="1">User ID</label>
-      <div class="col-sm-5">
-        <input readonly [value]="userId" type="text" class="form-control" id="1">
-      </div>
-      <div class="col-sm-4">
-      </div>
-    </div>
-    <div class="form-group">
-      <div class="col-sm-1"></div>
-      <label class="control-label col-sm-2" for="5">Wallet ID</label>
-      <div class="col-sm-5">
-        <input readonly [value]="walletId" type="text" class="form-control" id="5">
-      </div>
-      <div class="col-sm-4">
-      </div>
-    </div>
-    <div class="form-group">
-      <div class="col-sm-1"></div>
-      <label class="control-label col-sm-2" for="2">Balance</label>
-      <div class="col-sm-5">
-        <input readonly [value]="balance" type="text" class="form-control" id="2">
-      </div>
-      <div class="col-sm-4">
-      </div>
-    </div>
-    <div class="form-group">
-      <div class="col-sm-1"></div>
-      <label class="control-label col-sm-2" for="4">Input amount (Withdraw) (VND)<span>*</span></label>
-      <div class="div col-sm-5">
-        <input min="0" formControlName="balance" type="number" class="form-control" id="4">
-      </div>
-      <div class="col-sm-4">
-        <span *ngIf="!withdrawForm.get('balance').valid && withdrawForm.get('balance').touched" class="help-block">
-          <span>Amount withdrawn must lower than your current balance and greater than 1000 vnd</span>
-        </span>
-      </div>
-    </div>
+<!--<div>-->
+  <!--<br>-->
+  <!--<form class="form-horizontal" [formGroup]="withdrawForm" (ngSubmit)="onSubmit()">-->
+    <!--<div class="form-group">-->
+      <!--<div class="col-sm-1"></div>-->
+      <!--<label class="control-label col-sm-2" for="1">User ID</label>-->
+      <!--<div class="col-sm-5">-->
+        <!--<input readonly [value]="userId" type="text" class="form-control" id="1">-->
+      <!--</div>-->
+      <!--<div class="col-sm-4">-->
+      <!--</div>-->
+    <!--</div>-->
+    <!--<div class="form-group">-->
+      <!--<div class="col-sm-1"></div>-->
+      <!--<label class="control-label col-sm-2" for="5">Wallet ID</label>-->
+      <!--<div class="col-sm-5">-->
+        <!--<input readonly [value]="walletId" type="text" class="form-control" id="5">-->
+      <!--</div>-->
+      <!--<div class="col-sm-4">-->
+      <!--</div>-->
+    <!--</div>-->
+    <!--<div class="form-group">-->
+      <!--<div class="col-sm-1"></div>-->
+      <!--<label class="control-label col-sm-2" for="2">Balance</label>-->
+      <!--<div class="col-sm-5">-->
+        <!--<input readonly [value]="balance" type="text" class="form-control" id="2">-->
+      <!--</div>-->
+      <!--<div class="col-sm-4">-->
+      <!--</div>-->
+    <!--</div>-->
+    <!--<div class="form-group">-->
+      <!--<div class="col-sm-1"></div>-->
+      <!--<label class="control-label col-sm-2" for="4">Input amount (Withdraw) (VND)<span>*</span></label>-->
+      <!--<div class="div col-sm-5">-->
+        <!--<input min="0" formControlName="balance" type="number" class="form-control" id="4">-->
+      <!--</div>-->
+      <!--<div class="col-sm-4">-->
+        <!--<span *ngIf="!withdrawForm.get('balance').valid && withdrawForm.get('balance').touched" class="help-block">-->
+          <!--<span>Amount withdrawn must lower than your current balance and greater than 1000 vnd</span>-->
+        <!--</span>-->
+      <!--</div>-->
+    <!--</div>-->
 
-    <div class="form-group">
-      <hr>
-      <div class="col-sm-6"></div>
-      <div class="col-sm-2">
-        <button class="btn btn-default" style="width: 100%" type="button" (click)="onClear()">Clear</button>
-      </div>
-      <div class="col-sm-1"></div>
-      <div class="col-md-2">
-        <button class="btn btn-danger fa fa-money" style="width: 100%" type="submit">  Withdraw</button>
-      </div>
-    </div>
-  </form>
-</div>
+    <!--<div class="form-group">-->
+      <!--<hr>-->
+      <!--<div class="col-sm-6"></div>-->
+      <!--<div class="col-sm-2">-->
+        <!--<button class="btn btn-default" style="width: 100%" type="button" (click)="onClear()">Clear</button>-->
+      <!--</div>-->
+      <!--<div class="col-sm-1"></div>-->
+      <!--<div class="col-md-2">-->
+        <!--<button class="btn btn-danger fa fa-money" style="width: 100%" type="submit">  Withdraw</button>-->
+      <!--</div>-->
+    <!--</div>-->
+  <!--</form>-->
+<!--</div>-->

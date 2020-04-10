@@ -16,6 +16,7 @@ export class CreateFsmComponent implements OnInit, CanComponentDeactivate {
   formSubmitted = false;
   fsmForm: FormGroup;
   fss: FoodStallDto[];
+  loading = false;
 
   constructor(private route: ActivatedRoute,
               private adminService: AdminService,
@@ -33,12 +34,15 @@ export class CreateFsmComponent implements OnInit, CanComponentDeactivate {
   }
 
   createForm() {
+    this.loading = true;
     this.adminService.getAllFS().subscribe(data => {
       this.fss = data;
       this.fsmForm.get('foodStallId').setValue(this.fss[0].foodStallId);
+      this.loading = false;
     }, error => {
       // alert(error);
       this.toastr.error(error);
+      this.loading = false;
     })
     this.fsmForm = new FormGroup({
       username: new FormControl(null, [Validators.required, Validators.minLength(6), Validators.maxLength(20)]),
@@ -56,8 +60,11 @@ export class CreateFsmComponent implements OnInit, CanComponentDeactivate {
       return;
     }
     this.formSubmitted = true;
+    this.loading = true;
     this.adminService.createNewFsm(this.fsmForm.value).subscribe((data: any) => {
-      alert('Create new FS Manager successfully');
+      // alert('Create new FS Manager successfully');
+      this.loading = false;
+      this.toastr.success('Create new FS Manager successfully');
       this.router.navigate(['/admin/fsm']);
     }, (error) => {
       if (error === 'This username is existed please use another username') {
@@ -65,6 +72,7 @@ export class CreateFsmComponent implements OnInit, CanComponentDeactivate {
         this.fsmForm.get('username').setErrors({['invalid']: true});
       }
       this.toastr.error(error);
+      this.loading = false;
       // this.catchError.error = data;
       // this.router.navigate(['/error']);
     });

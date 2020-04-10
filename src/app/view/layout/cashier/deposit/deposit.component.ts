@@ -17,6 +17,7 @@ export class DepositComponent implements OnInit, CanComponentDeactivate {
   userId: number;
   balance: number;
   walletId: number;
+  loading = false;
 
   constructor(private route: ActivatedRoute,
               private cashierService: CashierService,
@@ -40,12 +41,15 @@ export class DepositComponent implements OnInit, CanComponentDeactivate {
   }
 
   createForm() {
+    this.loading = true;
     this.cashierService.getWalletDetail(this.userId).subscribe(data => {
       this.balance = data.balances;
       this.walletId = data.id;
+      this.loading = false;
     }, error => {
       // alert(error);
       this.toastr.error(error);
+      this.loading = false;
     });
     this.depositForm = new FormGroup({
       assert: new FormControl('deposit'),
@@ -60,14 +64,17 @@ export class DepositComponent implements OnInit, CanComponentDeactivate {
       this.formSubmitted = false;
       return;
     }
+    this.loading = true;
     this.cashierService.updateBalance(this.walletId, this.depositForm.get('balance').value, this.depositForm.get('assert').value)
       .subscribe((data: any) => {
-        console.log(data);
+        this.loading = false;
+        // console.log(data);
         // alert('Deposit successfully');
         this.toastr.success('Deposit successfully');
         this.createForm();
         // this.router.navigate(['/cashier/customer']);
       }, (error) => {
+        this.loading = false;
         this.formSubmitted = false;
         this.toastr.error(error);
         // alert(error);

@@ -26,6 +26,7 @@ export class EditFoodCourtComponent implements OnInit, CanComponentDeactivate {
   foodCourtDescription: string;
   foodCourtAddress: string;
   foodCourtImage: string;
+  loading = false;
 
   constructor(private adminService: AdminService,
               private route: ActivatedRoute,
@@ -52,6 +53,7 @@ export class EditFoodCourtComponent implements OnInit, CanComponentDeactivate {
   }
 
   createForm() {
+    this.loading = true;
     this.adminService.getInfo().subscribe(data => {
       this.foodCourtAddress = data.foodCourtAddress;
       this.foodCourtName = data.foodCourtName;
@@ -62,8 +64,10 @@ export class EditFoodCourtComponent implements OnInit, CanComponentDeactivate {
         foodCourtDescription: new FormControl(data.foodCourtDescription, [Validators.required, Validators.maxLength(1000)]),
         foodCourtAddress: new FormControl(data.foodCourtAddress, [Validators.required, Validators.maxLength(100)]),
       });
+      this.loading = false;
     }, error => {
       // alert(error);
+      this.loading = false;
       this.toastr.error(error);
     });
     this.fcEditForm = new FormGroup({
@@ -98,6 +102,7 @@ export class EditFoodCourtComponent implements OnInit, CanComponentDeactivate {
       return;
     }
     this.formSubmitted = true;
+    this.loading = true;
     const formData = new FormData();
     if (this.fileData !== null) {
       formData.append('image', this.fileData);
@@ -107,9 +112,11 @@ export class EditFoodCourtComponent implements OnInit, CanComponentDeactivate {
     formData.append('foodCourtAddress', this.fcEditForm.controls.foodCourtAddress.value);
     this.adminService.updateFC(formData).subscribe(data => {
       // alert('Update FC information successfully');
+      this.loading = false;
       this.toastr.success('Update FC information successfully');
       this.router.navigate(['/fsmanager/fs']);
     }, error => {
+      this.loading = false;
       this.formSubmitted = false;
       this.toastr.error(error);
       // alert(error);

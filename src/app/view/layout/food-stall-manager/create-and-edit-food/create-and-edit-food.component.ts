@@ -29,6 +29,7 @@ export class CreateAndEditFoodComponent implements OnInit, CanComponentDeactivat
 
   formSubmitted = false;
   foodForm: FormGroup;
+  loading = false;
 
   constructor(private route: ActivatedRoute,
               private authenticationService: AuthenticationService,
@@ -52,6 +53,7 @@ export class CreateAndEditFoodComponent implements OnInit, CanComponentDeactivat
   }
 
   updateForm() {
+    this.loading = true;
     this.fsmService.getFoodInfo(this.authenticationService.currentUserValue.foodStallId, this.foodID).subscribe(data => {
       this.foodDTO = data;
       this.isSale = true;
@@ -63,9 +65,11 @@ export class CreateAndEditFoodComponent implements OnInit, CanComponentDeactivat
         foodType: new FormControl(this.foodDTO.foodType.typeName),
         foodDescription: new FormControl(this.foodDTO.foodDescription, [Validators.required, Validators.maxLength(1000)])
       });
+      this.loading = false;
     }, error => {
       // alert(error);
       this.toastr.error(error);
+      this.loading = false;
     });
   }
 
@@ -74,11 +78,14 @@ export class CreateAndEditFoodComponent implements OnInit, CanComponentDeactivat
   }
 
   createForm() {
+    this.loading = true;
     this.fsmService.getAllFoodTypes().subscribe(data => {
       this.types = data;
       this.foodForm.get('foodType').setValue(this.types[0].typeName);
+      this.loading = false;
     }, error => {
       this.toastr.error(error);
+      this.loading = false;
     });
     this.foodForm = new FormGroup({
       foodName: new FormControl(null, [Validators.required, Validators.maxLength(50)]),
@@ -114,6 +121,7 @@ export class CreateAndEditFoodComponent implements OnInit, CanComponentDeactivat
       return;
     }
     if (this.foodForm.get('retailPrice').value > this.foodForm.get('originPrice').value) {
+      this.markControlsAsTouched();
       this.foodForm.get('retailPrice').setErrors({['invalid']: true});
       return;
     }
@@ -132,22 +140,28 @@ export class CreateAndEditFoodComponent implements OnInit, CanComponentDeactivat
       } else {
         formData.append('retailPrice', this.foodForm.controls.originPrice.value);
       }
+      this.loading = true;
       this.fsmService.createNewFood(this.authenticationService.currentUserValue.foodStallId, formData).subscribe(data => {
         // alert('Create new food successfully');
+        this.loading = false;
         this.toastr.success('Create new food successfully');
         this.router.navigate(['/fsmanager/food']);
       }, error => {
         // alert(error);
+        this.loading = false;
         this.formSubmitted = false;
         this.toastr.error(error);
       });
     } else {
       formData.append('retailPrice', this.foodForm.controls.retailPrice.value);
+      this.loading = true;
       this.fsmService.updateFood(this.authenticationService.currentUserValue.foodStallId, this.foodID, formData).subscribe(data => {
         // alert('Update food successfully');
+        this.loading = false;
         this.toastr.success('Update food successfully');
         this.router.navigate(['fsmanager/food']);
       }, error => {
+        this.loading = false;
         this.formSubmitted = false;
         this.toastr.error(error);
       });

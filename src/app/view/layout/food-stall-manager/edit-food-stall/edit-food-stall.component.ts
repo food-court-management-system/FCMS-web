@@ -29,6 +29,7 @@ export class EditFoodStallComponent implements OnInit, CanComponentDeactivate {
 
   formSubmitted = false;
   fsEditForm: FormGroup;
+  loading = false;
 
   constructor(private route: ActivatedRoute,
               private authenticationService: AuthenticationService,
@@ -47,6 +48,7 @@ export class EditFoodStallComponent implements OnInit, CanComponentDeactivate {
   }
 
   createForm() {
+    this.loading = true;
     this.fsmService.getInfo(this.authenticationService.currentUserValue.foodStallId).subscribe(data => {
       this.fsId = data.foodStallId;
       this.fsName = data.foodStallName;
@@ -57,9 +59,11 @@ export class EditFoodStallComponent implements OnInit, CanComponentDeactivate {
         fsName: new FormControl(data.foodStallName, [Validators.required, Validators.maxLength(50)]),
         fsDescription: new FormControl(data.foodStallDescription, [Validators.required, Validators.maxLength(1000)])
       });
+      this.loading = false;
     }, error => {
       // alert(error);
       this.toastr.error(error);
+      this.loading = false;
     });
     this.fsEditForm = new FormGroup({
       fsName: new FormControl(null, [Validators.required, Validators.maxLength(50)]),
@@ -98,11 +102,14 @@ export class EditFoodStallComponent implements OnInit, CanComponentDeactivate {
     }
     formData.append('foodStallName', this.fsEditForm.controls.fsName.value);
     formData.append('foodStallDescription', this.fsEditForm.controls.fsDescription.value);
+    this.loading = true;
     this.fsmService.updateFS(this.authenticationService.currentUserValue.foodStallId, formData).subscribe(data => {
       // alert('Update FS information successfully');
+      this.loading = false;
       this.toastr.success('Update FS information successfully');
       this.router.navigate(['/fsmanager/fs']);
     }, error => {
+      this.loading = false;
       this.formSubmitted = false;
       this.toastr.error(error);
       // alert(error);

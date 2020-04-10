@@ -17,6 +17,7 @@ export class FoodStallInformationComponent implements OnInit {
   fsDescription: string;
   fsRating: number;
   fsImage: string;
+  loading = false;
 
   constructor(private fsmService: FsmanagerService,
               private authenticationService: AuthenticationService,
@@ -25,15 +26,18 @@ export class FoodStallInformationComponent implements OnInit {
 
   ngOnInit() {
     // console.log(this.authenticationService.currentUser);
+    this.loading = true;
     this.fsmService.getInfo(this.authenticationService.currentUserValue.foodStallId).subscribe(data => {
       this.fsId = data.foodStallId;
       this.fsName = data.foodStallName;
       this.fsDescription = data.foodStallDescription;
       this.fsRating = data.foodStallRating;
       this.fsImage = data.foodStallImage;
+      this.loading = false;
     }, error => {
       // alert(error);
       this.toastr.error(error);
+      this.loading = false;
     });
   }
 

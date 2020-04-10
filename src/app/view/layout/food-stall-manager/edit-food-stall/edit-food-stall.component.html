@@ -1,92 +1,199 @@
-<div class="row" style="padding-left: 40px;">
-  <br>
-  <h4>Food Stall Information</h4>
-  <hr>
+<ng-template #customLoadingTemplate>
+  <div class="custom-class">
+  </div>
+</ng-template>
+
+<ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '3px',fullScreenBackdrop: true }" [template]="customLoadingTemplate"></ngx-loading>
+
+<div class="main-content" style="margin-top: 10px">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header card-header-danger">
+            <h4 class="card-title ">Food Stall Information</h4>
+          </div>
+          <div class="card-body">
+            <div>
+              <br>
+              <form class="form-horizontal" [formGroup]="fsEditForm" (ngSubmit)="onSubmit()">
+                <div class="form-group">
+                  <div class="col-sm-1"></div>
+                  <label class="control-label col-sm-2" for="7">FS ID</label>
+                  <div class="col-sm-5">
+                    <input [value]="fsId" readonly type="text" maxlength="50" class="form-control" id="7">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <div class="col-sm-1"></div>
+                  <label class="control-label col-sm-2" for="6">FS Name</label>
+                  <div class="col-sm-5">
+                    <input formControlName="fsName" [value]="fsName" type="text" maxlength="50" class="form-control" id="6">
+                  </div>
+                  <div class="col-sm-4">
+        <span *ngIf="!fsEditForm.get('fsName').valid && fsEditForm.get('fsName').touched" class="help-block">
+          <span>Name is required</span>
+        </span>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <div class="col-sm-1"></div>
+                  <label class="control-label col-sm-2" for="1">Description</label>
+                  <div class="col-sm-5">
+                    <textarea formControlName="fsDescription" style="height: 100px;" [value]="fsDescription" type="text" maxlength="500" class="form-control" id="1"></textarea>
+                  </div>
+                  <div class="col-sm-4">
+        <span *ngIf="!fsEditForm.get('fsDescription').valid && fsEditForm.get('fsDescription').touched" class="help-block">
+          <span>Name is required</span>
+        </span>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <div class="col-sm-1"></div>
+                  <label class="control-label col-sm-2" for="2">Rating</label>
+                  <div class="col-sm-5">
+                    <input [value]="fsRating" readonly type="text" class="form-control" id="2">
+                  </div>
+                </div>
+                <div class="form-group" *ngIf="!isChangeImage">
+                  <div class="col-sm-1"></div>
+                  <label class="control-label col-sm-2">Old Image</label>
+                  <div class="col-sm-5">
+                    <img [src]="fsImage" class="img-responsive">
+                  </div>
+                  <div class="col-sm-1">
+                    <button class="btn btn-success" type="button" (click)="onUpdateImage()">Update image</button>
+                  </div>
+                </div>
+
+                <div class="row" *ngIf="isChangeImage">
+                  <div class="col-md-6 offset-md-3">
+                    <h3>Choose New Image</h3>
+                    <div class="form-group">
+                      <input type="file" name="image" (change)="fileProgress($event)" />
+                    </div>
+                    <div *ngIf="fileUploadProgress">
+                      Upload progress: {{ fileUploadProgress }}
+                    </div>
+                    <div class="image-preview mb-3" *ngIf="previewUrl">
+                      <img [src]="previewUrl" height="300" />
+                    </div>
+
+                    <div class="mb-3" *ngIf="uploadedFilePath">
+                      {{uploadedFilePath}}
+                    </div>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <hr>
+                  <div class="col-sm-6"></div>
+                  <div class="col-sm-2">
+                    <button class="btn btn-info" style="width: 100%" type="submit">Update</button>
+                  </div>
+                  <div class="col-sm-1"></div>
+                </div>
+              </form>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
 </div>
+
+
+<!--<div class="row" style="padding-left: 40px;">-->
+  <!--<br>-->
+  <!--<h4>Food Stall Information</h4>-->
+  <!--<hr>-->
+<!--</div>-->
 <!--<div class="row" *ngIf="showError">-->
 <!--<div class="alert alert-danger alert-dismissible">-->
 <!--<a class="close" data-dismiss="alert" aria-label="close">&times;</a>-->
 <!--All fields are required-->
 <!--</div>-->
 <!--</div>-->
-<div>
-  <br>
-  <form class="form-horizontal" [formGroup]="fsEditForm" (ngSubmit)="onSubmit()">
-    <div class="form-group">
-      <div class="col-sm-1"></div>
-      <label class="control-label col-sm-2" for="7">FS ID</label>
-      <div class="col-sm-5">
-        <input [value]="fsId" readonly type="text" maxlength="50" class="form-control" id="7">
-      </div>
-    </div>
-    <div class="form-group">
-      <div class="col-sm-1"></div>
-      <label class="control-label col-sm-2" for="6">FS Name</label>
-      <div class="col-sm-5">
-        <input formControlName="fsName" [value]="fsName" type="text" maxlength="50" class="form-control" id="6">
-      </div>
-      <div class="col-sm-4">
-        <span *ngIf="!fsEditForm.get('fsName').valid && fsEditForm.get('fsName').touched" class="help-block">
-          <span>Name is required</span>
-        </span>
-      </div>
-    </div>
-    <div class="form-group">
-      <div class="col-sm-1"></div>
-      <label class="control-label col-sm-2" for="1">Description</label>
-      <div class="col-sm-5">
-        <textarea formControlName="fsDescription" style="height: 100px;" [value]="fsDescription" type="text" maxlength="500" class="form-control" id="1"></textarea>
-      </div>
-      <div class="col-sm-4">
-        <span *ngIf="!fsEditForm.get('fsDescription').valid && fsEditForm.get('fsDescription').touched" class="help-block">
-          <span>Name is required</span>
-        </span>
-      </div>
-    </div>
-    <div class="form-group">
-      <div class="col-sm-1"></div>
-      <label class="control-label col-sm-2" for="2">Rating</label>
-      <div class="col-sm-5">
-        <input [value]="fsRating" readonly type="text" class="form-control" id="2">
-      </div>
-    </div>
-    <div class="form-group" *ngIf="!isChangeImage">
-      <div class="col-sm-1"></div>
-      <label class="control-label col-sm-2">Old Image</label>
-      <div class="col-sm-5">
-        <img [src]="fsImage" class="img-responsive">
-      </div>
-      <div class="col-sm-1">
-        <button class="btn btn-success" type="button" (click)="onUpdateImage()">Update image</button>
-      </div>
-    </div>
+<!--<div>-->
+  <!--<br>-->
+  <!--<form class="form-horizontal" [formGroup]="fsEditForm" (ngSubmit)="onSubmit()">-->
+    <!--<div class="form-group">-->
+      <!--<div class="col-sm-1"></div>-->
+      <!--<label class="control-label col-sm-2" for="7">FS ID</label>-->
+      <!--<div class="col-sm-5">-->
+        <!--<input [value]="fsId" readonly type="text" maxlength="50" class="form-control" id="7">-->
+      <!--</div>-->
+    <!--</div>-->
+    <!--<div class="form-group">-->
+      <!--<div class="col-sm-1"></div>-->
+      <!--<label class="control-label col-sm-2" for="6">FS Name</label>-->
+      <!--<div class="col-sm-5">-->
+        <!--<input formControlName="fsName" [value]="fsName" type="text" maxlength="50" class="form-control" id="6">-->
+      <!--</div>-->
+      <!--<div class="col-sm-4">-->
+        <!--<span *ngIf="!fsEditForm.get('fsName').valid && fsEditForm.get('fsName').touched" class="help-block">-->
+          <!--<span>Name is required</span>-->
+        <!--</span>-->
+      <!--</div>-->
+    <!--</div>-->
+    <!--<div class="form-group">-->
+      <!--<div class="col-sm-1"></div>-->
+      <!--<label class="control-label col-sm-2" for="1">Description</label>-->
+      <!--<div class="col-sm-5">-->
+        <!--<textarea formControlName="fsDescription" style="height: 100px;" [value]="fsDescription" type="text" maxlength="500" class="form-control" id="1"></textarea>-->
+      <!--</div>-->
+      <!--<div class="col-sm-4">-->
+        <!--<span *ngIf="!fsEditForm.get('fsDescription').valid && fsEditForm.get('fsDescription').touched" class="help-block">-->
+          <!--<span>Name is required</span>-->
+        <!--</span>-->
+      <!--</div>-->
+    <!--</div>-->
+    <!--<div class="form-group">-->
+      <!--<div class="col-sm-1"></div>-->
+      <!--<label class="control-label col-sm-2" for="2">Rating</label>-->
+      <!--<div class="col-sm-5">-->
+        <!--<input [value]="fsRating" readonly type="text" class="form-control" id="2">-->
+      <!--</div>-->
+    <!--</div>-->
+    <!--<div class="form-group" *ngIf="!isChangeImage">-->
+      <!--<div class="col-sm-1"></div>-->
+      <!--<label class="control-label col-sm-2">Old Image</label>-->
+      <!--<div class="col-sm-5">-->
+        <!--<img [src]="fsImage" class="img-responsive">-->
+      <!--</div>-->
+      <!--<div class="col-sm-1">-->
+        <!--<button class="btn btn-success" type="button" (click)="onUpdateImage()">Update image</button>-->
+      <!--</div>-->
+    <!--</div>-->
 
-    <div class="row" *ngIf="isChangeImage">
-      <div class="col-md-6 offset-md-3">
-        <h3>Choose New Image</h3>
-        <div class="form-group">
-          <input type="file" name="image" (change)="fileProgress($event)" />
-        </div>
-        <div *ngIf="fileUploadProgress">
-          Upload progress: {{ fileUploadProgress }}
-        </div>
-        <div class="image-preview mb-3" *ngIf="previewUrl">
-          <img [src]="previewUrl" height="300" />
-        </div>
+    <!--<div class="row" *ngIf="isChangeImage">-->
+      <!--<div class="col-md-6 offset-md-3">-->
+        <!--<h3>Choose New Image</h3>-->
+        <!--<div class="form-group">-->
+          <!--<input type="file" name="image" (change)="fileProgress($event)" />-->
+        <!--</div>-->
+        <!--<div *ngIf="fileUploadProgress">-->
+          <!--Upload progress: {{ fileUploadProgress }}-->
+        <!--</div>-->
+        <!--<div class="image-preview mb-3" *ngIf="previewUrl">-->
+          <!--<img [src]="previewUrl" height="300" />-->
+        <!--</div>-->
 
-        <div class="mb-3" *ngIf="uploadedFilePath">
-          {{uploadedFilePath}}
-        </div>
-      </div>
-    </div>
+        <!--<div class="mb-3" *ngIf="uploadedFilePath">-->
+          <!--{{uploadedFilePath}}-->
+        <!--</div>-->
+      <!--</div>-->
+    <!--</div>-->
 
-    <div class="form-group">
-      <hr>
-      <div class="col-sm-6"></div>
-      <div class="col-sm-2">
-        <button class="btn btn-info" style="width: 100%" type="submit">Update</button>
-      </div>
-      <div class="col-sm-1"></div>
-    </div>
-  </form>
-</div>
+    <!--<div class="form-group">-->
+      <!--<hr>-->
+      <!--<div class="col-sm-6"></div>-->
+      <!--<div class="col-sm-2">-->
+        <!--<button class="btn btn-info" style="width: 100%" type="submit">Update</button>-->
+      <!--</div>-->
+      <!--<div class="col-sm-1"></div>-->
+    <!--</div>-->
+  <!--</form>-->
+<!--</div>-->

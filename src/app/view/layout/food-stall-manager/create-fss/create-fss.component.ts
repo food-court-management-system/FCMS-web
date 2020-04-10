@@ -15,6 +15,7 @@ export class CreateFssComponent implements OnInit, CanComponentDeactivate {
 
   formSubmitted = false;
   fssForm: FormGroup;
+  loading = false;
 
   constructor(private route: ActivatedRoute,
               private authenticationService: AuthenticationService,
@@ -50,9 +51,11 @@ export class CreateFssComponent implements OnInit, CanComponentDeactivate {
       this.formSubmitted = false;
       return;
     }
+    this.loading = true;
     this.fsmService.createFSS(this.fssForm.value).subscribe((data: any) => {
       // console.log(data);
       // alert('Add new FS staff successfully');
+      this.loading = false;
       this.toastr.success('Add new FSS successfully');
       this.router.navigate(['/fsmanager/fss']);
     }, (error) => {
@@ -62,6 +65,7 @@ export class CreateFssComponent implements OnInit, CanComponentDeactivate {
       }
       this.formSubmitted = false;
       this.toastr.error(error);
+      this.loading = false;
       // this.catchError.error = data;
       // this.router.navigate(['/error']);
     });
