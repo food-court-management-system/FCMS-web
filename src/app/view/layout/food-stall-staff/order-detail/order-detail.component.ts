@@ -45,7 +45,7 @@ export class OrderDetailComponent implements OnInit {
     this.modalCancel.elementRef.nativeElement.previousElementSibling.classList.add('modal-open');
     this.modalCancel.elementRef.nativeElement.previousElementSibling.style.display = 'block';
     this.backdrop = document.createElement('DIV')
-    this.backdrop.className = 'modal-backdrop';
+    this.backdrop.className = 'modal-backdrop in';
     document.body.appendChild(this.backdrop);
   }
 
