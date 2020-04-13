@@ -2,7 +2,7 @@
         <div class="custom-class">
         </div>
     </ng-template>
- 
+
 <ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '3px',fullScreenBackdrop: true }" [template]="customLoadingTemplate"></ngx-loading>
 
 <div class="main-content" style="margin-top: 10px">
@@ -14,7 +14,7 @@
                       <h4 class="card-title ">Order Management</h4>
                   </div>
                   <div class="card-body">
-                    <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="row-border hover">
+                    <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table-striped row-border hover">
                       <thead>
                       <tr>
                         <th>ID</th>
@@ -45,4 +45,3 @@
       </div>
   </div>
 </div>
-  

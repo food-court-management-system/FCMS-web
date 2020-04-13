@@ -4,6 +4,7 @@ import { DataTableDirective } from 'angular-datatables';
 import { Subject } from 'rxjs';
 import { AuthenticationService } from 'src/app/service/authentication.service';
 import { Router } from '@angular/router';
+import {ToastrService} from 'ngx-toastr';
 
 @Component({
   selector: 'app-manage-order',
@@ -20,13 +21,16 @@ export class ManageOrderComponent implements OnInit, OnDestroy {
   foodStallId;
   loading = false;
 
-  constructor(private foodstallStaffService: FoodstallStaffService, private authenticationService: AuthenticationService, private router: Router) { }
+  constructor(private foodstallStaffService: FoodstallStaffService,
+              private authenticationService: AuthenticationService,
+              private router: Router,
+              private toastr: ToastrService) { }
   ngOnDestroy() {
     this.dtTrigger.unsubscribe();
   }
 
   ngOnInit() {
-    this.foodStallId = this.authenticationService.currentUserValue.foodStallId + "";
+    this.foodStallId = this.authenticationService.currentUserValue.foodStallId + '';
     this.getAllItemInProcess();
   }
   getAllItemInProcess() {
@@ -36,7 +40,10 @@ export class ManageOrderComponent implements OnInit, OnDestroy {
       this.loading = false;
       this.items = res;
       this.dtTrigger.next();
-    })
+    }, error => {
+      this.toastr.error(error);
+      this.loading = false;
+    });
   }
 
   onAction(cartItemId) {

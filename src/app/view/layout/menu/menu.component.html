@@ -76,6 +76,13 @@
 
 <div *ngIf="role === 'fsstaff'">
   <div class="row">
-    <a [routerLink]="['/fsstaff/order']" routerLinkActive="active" class="menu">Manage Order</a>
+    <a [routerLink]="['/fsstaff/order']" routerLinkActive="active" class="menu">Manage Orders</a>
   </div>
+  <div class="row">
+    <a [routerLink]="['/fsstaff/order/current']" routerLinkActive="active" class="submenu">Current orders</a>
+  </div>
+  <div class="row">
+    <a [routerLink]="['/fsstaff/order/canceled']" routerLinkActive="active" class="submenu">Canceled orders</a>
+  </div>
+
 </div>

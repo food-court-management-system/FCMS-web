@@ -35,6 +35,7 @@ import {EditFoodStallComponent} from './food-stall-manager/edit-food-stall/edit-
 import {CanComponentDeactivate, CanDeactivateGuard} from '../../service/can-deactivate-guard.service';
 import {EditFoodCourtComponent} from './admin/edit-food-court/edit-food-court.component';
 import { ScanComponent } from './cashier/scan/scan.component';
+import {OrderCanceledComponent} from './food-stall-staff/order-canceled/order-canceled.component';
 
 const layoutRoutes: Routes = [
   { path: '',
@@ -73,6 +74,8 @@ const layoutRoutes: Routes = [
         { path: 'fsstaff', component: FoodStallStaffComponent, canActivate: [FoodstallStaffGuard], children: [
           { path: '' , component: ManageOrderComponent},
           { path: 'order', component: ManageOrderComponent},
+          { path: 'order/current', component: ManageOrderComponent},
+          { path: 'order/canceled', component: OrderCanceledComponent},
           { path: 'detail/:id', component: OrderDetailComponent},
         ] },
       { path: 'personal-information', component: PersonalInformationComponent },

@@ -41,6 +41,7 @@ import { ChangePasswordComponent } from './change-password/change-password.compo
 import { EditFoodCourtComponent } from './admin/edit-food-court/edit-food-court.component';
 import { ScanComponent } from './cashier/scan/scan.component';
 import { ZXingScannerModule } from '@zxing/ngx-scanner';
+import { OrderCanceledComponent } from './food-stall-staff/order-canceled/order-canceled.component';
 
 @NgModule({
   declarations: [
@@ -75,7 +76,8 @@ import { ZXingScannerModule } from '@zxing/ngx-scanner';
     OrderDetailComponent,
     ChangePasswordComponent,
     EditFoodCourtComponent,
-    ScanComponent
+    ScanComponent,
+    OrderCanceledComponent
   ],
   imports: [
     LayoutRoutingModule,

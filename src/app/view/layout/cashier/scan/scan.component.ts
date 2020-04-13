@@ -17,7 +17,7 @@ export class ScanComponent implements OnInit {
   walletId = '';
   scan = false;
   allowedFormats = [ BarcodeFormat.QR_CODE, BarcodeFormat.EAN_13, BarcodeFormat.CODE_128, BarcodeFormat.DATA_MATRIX /*, ...*/ ];
-  
+
   info;
 
   constructor(private cashierService: CashierService, private toastr: ToastrService, private router: Router) { }
@@ -27,32 +27,32 @@ export class ScanComponent implements OnInit {
 
   showDialog() {
     this.scan = true;
-    let view = this.modal_1.createEmbeddedView(null);
+    const view = this.modal_1.createEmbeddedView(null);
     this.vc.insert(view);
     this.modal_1.elementRef.nativeElement.previousElementSibling.classList.remove('fade');
     this.modal_1.elementRef.nativeElement.previousElementSibling.classList.add('modal-open');
     this.modal_1.elementRef.nativeElement.previousElementSibling.style.display = 'block';
     this.backdrop = document.createElement('DIV')
     this.backdrop.className = 'modal-backdrop';
-    document.body.appendChild(this.backdrop)
+    document.body.appendChild(this.backdrop);
   }
 
   closeDialog() {
     this.scan = false;
     this.vc.clear()
-    document.body.removeChild(this.backdrop)
+    document.body.removeChild(this.backdrop);
   }
 
   onSearch() {
     var numbers = /^[0-9]+$/;
-      if(!this.walletId.match(numbers)) {
-        this.toastr.error("WalletId must contain only numberic")
+      if (!this.walletId.match(numbers)) {
+        this.toastr.error('WalletId must contain only numberic');
         return;
       }
     this.cashierService.scanQRCode(this.walletId)
     .subscribe(res => {
       this.info = res;
-      console.log(this.info)
+      console.log(this.info);
     },
       error => {
         this.toastr.error(error);

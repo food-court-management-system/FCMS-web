@@ -6,3 +6,7 @@
 .card-body {
     margin-left: 20%;
 }
+
+input.ng-invalid.ng-touched {
+  border: 1px solid red;
+}
