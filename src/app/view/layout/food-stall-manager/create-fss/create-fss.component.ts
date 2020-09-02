@@ -40,7 +40,7 @@ export class CreateFssComponent implements OnInit, CanComponentDeactivate {
       firstName: new FormControl(null, [Validators.required, Validators.maxLength(50)]),
       lastName: new FormControl(null, [Validators.required, Validators.maxLength(50)]),
       foodStallId: new FormControl(this.authenticationService.currentUserValue.foodStallId),
-      age: new FormControl(0, [Validators.required, Validators.min(18), Validators.max(60)])
+      age: new FormControl(0, [Validators.required, Validators.min(1900)])
     });
   }
 

@@ -68,13 +68,13 @@
                 </div>
                 <div class="form-group">
                   <div class="col-sm-1"></div>
-                  <label class="control-label col-sm-2" for="4">Age:  <span>*</span></label>
+                  <label class="control-label col-sm-2" for="4">YOB:  <span>*</span></label>
                   <div class="div col-sm-5">
                     <input formControlName="age" type="number" class="form-control" id="4">
                   </div>
                   <div class="col-sm-4">
         <span *ngIf="!cashierForm.get('age').valid && cashierForm.get('age').touched" class="help-block">
-          <span>Age must from 18-60</span>
+          <span>YOB must > 1900</span>
         </span>
                   </div>
                 </div>

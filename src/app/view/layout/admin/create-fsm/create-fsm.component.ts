@@ -49,7 +49,7 @@ export class CreateFsmComponent implements OnInit, CanComponentDeactivate {
       password: new FormControl(null, [Validators.required, Validators.minLength(6), Validators.maxLength(20)]),
       firstName: new FormControl(null, [Validators.required, Validators.maxLength(50)]),
       lastName: new FormControl(null, [Validators.required, Validators.maxLength(50)]),
-      age: new FormControl(0, [Validators.required, Validators.min(18), Validators.max(60)]),
+      age: new FormControl(0, [Validators.required, Validators.min(1900)]),
       foodStallId: new FormControl(null)
     });
   }
