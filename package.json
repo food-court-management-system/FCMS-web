@@ -4,7 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve --o",
-    "deploy": "ng build && aws s3 sync ./dist/fcms-front s3://fcms-front --delete",
+    "deploy": "ng build && aws s3 sync ./dist/fcms-front s3://fcms.xyz --delete",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",

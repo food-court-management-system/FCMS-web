@@ -1,3 +1,3 @@
 export class AppSettings {
-    public static BASEURL = 'https://elb.fcms.xyz';
+    public static BASEURL = 'https://api.fcms.xyz';
 }
